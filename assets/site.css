@@ -343,3 +343,4 @@ nav a.l[aria-current=page] .ni{background:linear-gradient(145deg,#4fd07c,#259D4E
 .stage.paused *{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.stage *{animation:none!important}.sc2,.sc3{opacity:0}.stage-pause{display:none}}
 @media(max-width:700px){.hero .stage{order:-1;max-width:420px;margin:0 auto 8px}}
+@media(max-width:700px){.hero .stripes{top:8px;bottom:auto;height:440px;opacity:.9}.hero.band{padding-top:12px}}
