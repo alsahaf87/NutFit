@@ -284,7 +284,7 @@ footer .wrap{grid-template-columns:1.2fr 1fr 1fr}
 .hero-img.duo{position:relative;aspect-ratio:1/1.02;width:100%;max-width:560px;justify-self:center;margin-bottom:clamp(24px,4vw,48px)}
 .duo img{position:absolute;filter:drop-shadow(0 24px 36px rgba(0,0,0,.18))}
 .duo .p1{width:44%;inset-inline-end:6%;top:0}
-.duo .p2{width:46%;inset-inline-start:4%;top:14%}
+.duo .p2{width:42%;inset-inline-start:4%;top:8%}
 .gainlogo{width:min(420px,90%);margin:0 auto clamp(32px,5vw,64px);filter:drop-shadow(0 10px 30px rgba(0,0,0,.18));background:#fff;border-radius:24px;padding:20px}
 .pf .branded{max-width:260px;margin:0 auto 10px}.pf img{height:240px;width:100%;object-fit:contain}
 .qrev img{display:block;margin:0 auto 10px;width:72px;height:72px;background:#fff;border-radius:50%;padding:8px}.qrev b{display:block;font-size:18px}.qrev p{color:#fff;opacity:.85;margin:6px auto 0;font-size:15px}
