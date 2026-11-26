@@ -5,12 +5,12 @@ const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v)
 const fmt=n=>Math.round(n).toLocaleString('ar-EG');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-const REVIEWS=[
- ['التطبيق مصمم ليتناسب مع كل شخص، كما أن التمارين ليست صعبة بالنسبة للمبتدئين وتزداد صعوبة مع تقدم مستوى اللياقة، النظام الغذائي سهل الالتزام به، وليس مكلف من الناحية المادية','أمل الحدادي','Play Store','الإمارات'],
- ['الكوتش أكتر برنامج مفهوم ومنظم. غيّر حياتي حرفياً، البرامج الأخرى يا معقدة يا غير واضحة','هوى الجهيمي','App Store','السعودية'],
- ['مكنتش بستمر على أي نظام وكنت بزهق على طول بس مع الكوتش محستش بأي ملل خالص، التمارين متنوعة وبيفكرني كل شوية أشرب مية، يستاهل الصراحة أكثر من ٥ نجوم.','أحمد عبد الله','Play Store','مصر'],
- ['أكثر شيء حبيته في الكوتش هو وضوح وسهولة الاستخدام، النظام الغذائي المتنوع، وسرعة الرد','أحمد سمير','App Store','مصر'],
- ['أفضل تطبيق عربي، وحتى على مستوى عالمي، سعر اشتراك بسيط نسبيًا، وتمارين فعالة جدًا','وليد خضر','App Store','السعودية']
+const TIPS=[
+ ['برنامج مصمم على هدفك','كل إجابة بتساعدنا نظبط لك التمارين والسعرات بدقة.'],
+ ['تمرّن من أي مكان','في البيت أو الجيم، بأدوات أو من غير، هنعمل لك البرنامج المناسب.'],
+ ['سعرات محسوبة علميًا','بنحسب احتياجك بمعادلات معتمدة حسب وزنك وطولك وعمرك ونسبة دهونك.'],
+ ['على قد مستواك','البرنامج بيبدأ معاك من مستواك الحالي ويتطور مع تقدمك.'],
+ ['على مزاجك','اختار الأيام والوقت اللي يناسبوك، والبرنامج يمشي معاك.']
 ];
 const ICO={
  lose:'M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM8.5 9a4.5 4.5 0 0 1 7 0M12 9l1.5-2',
@@ -46,8 +46,8 @@ function render(){
   document.querySelectorAll('#qsteps li').forEach((li,n)=>{li.className=n<st.s?'done':n===st.s?'cur':''});
   $('qbar').style.width=(i/(STEPS.length-1)*100)+'%';
   $('qback').style.visibility=i?'visible':'hidden';
-  const r=REVIEWS[i%REVIEWS.length];
-  $('qrev').innerHTML=`<div class="stars">★★★★★</div><blockquote>${esc(r[0])}</blockquote><figcaption><b>${esc(r[1])}</b><small>${esc(r[2])} · ${esc(r[3])}</small></figcaption>`;
+  const r=TIPS[i%TIPS.length];
+  $('qrev').innerHTML=`<img src="assets/brand/logo-icon.webp" alt="" width="64" height="64"><b>${esc(r[0])}</b><p>${esc(r[1])}</p>`;
   const B=$('qbody');let h='';
   if(st.type==='done'){h=result();$('qnext').hidden=true}
   else{
@@ -98,8 +98,8 @@ function result(){
   <div class="big qres"><small>${A.goal==='gain'?'سعراتك اليومية لاكتساب كتلة عضلية':'سعراتك اليومية لخسارة الوزن والدهون'}</small><div class="n">${fmt(k)}<span>سعر حراري</span></div>
    <div class="qmac"><div><b>${fmt(p)}</b>جم بروتين</div><div><b>${fmt(c)}</b>جم كارب</div><div><b>${fmt(f)}</b>جم دهون</div></div></div>
   <div class="qsum">${chips.map(x=>`<span>${esc(x)}</span>`).join('')}</div>
-  <p class="qd">الكوتش هيبني لك برنامج تمارين ونظام غذائي على المعلومات دي، ويتابعك فيه خطوة بخطوة.</p>
-  <div class="qend"><a class="btn" href="pricing.html">ابدأ رحلتك مع الكوتش</a><a class="btn ghost" href="https://elcoach.me/login?plan=0&amp;ref=nutfit">جرّب الخطة المجانية</a></div>
+  <p class="qd">هنبني لك برنامج تمارين ونظام غذائي على المعلومات دي، ونتابعك فيه خطوة بخطوة.</p>
+  <div class="qend"><a class="btn" href="pricing.html">اختار خطتك</a><a class="btn ghost" href="pricing.html#free">جرّب الخطة المجانية</a></div>
   <p class="note">الأرقام تقديرية${fat?' ومحسوبة بنسبة الدهون (معادلة Katch-McArdle)':' (معادلة Mifflin-St Jeor)'}. <button class="linkb" id="qagain" type="button">عدّل إجاباتك</button></p>`;
 }
 render();
