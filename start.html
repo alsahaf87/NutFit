@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ابدأ رحلتك | NutFit</title>
+<meta name="description" content="جاوب على أسئلة بسيطة واعرف سعراتك اليومية وشكل برنامجك المناسب.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<body>
+<nav aria-label="القائمة الرئيسية"><div class="wrap">
+  <a class="logo" href="index.html">NutFit</a>
+  <div class="links">
+    <a class="l" href="nutrition.html">نظام التغذية</a>
+    <a class="l" href="pricing.html">الاشتراكات</a>
+    <a class="l" href="foods.html">جدول الأكلات</a>
+    <a class="l" href="index.html#calc">الحاسبة</a>
+    <a class="l" href="https://blog.elcoach.me/articles/">المدونة</a>
+  </div>
+  <a class="btn ghost" href="start.html">ابدأ التغيير</a>
+</div></nav>
+<main class="quiz">
+  <aside class="qside">
+    <h2>باقي خطوات بسيطة لتبدأ رحلتك</h2>
+    <ol class="qsteps" id="qsteps">
+      <li>اختر نوع البرنامج</li><li>حدد مكان تمرينك</li><li>ادخل معلوماتك الشخصية</li><li>مستواك الرياضي</li><li>تفضيلات التمرين</li><li>ابدأ رحلتك مع الكوتش</li>
+    </ol>
+    <figure class="qrev" id="qrev" aria-live="polite"></figure>
+  </aside>
+  <section class="qmain">
+    <div class="qtop"><button class="qback" id="qback" type="button" aria-label="رجوع">→</button><div class="qprog"><i id="qbar"></i></div></div>
+    <div id="qbody"></div>
+    <button class="btn qnext" id="qnext" type="button" disabled>متابعة</button>
+  </section>
+</main>
+<footer><div class="wrap">
+  <div><a class="logo" href="index.html">NutFit</a><p style="margin-top:8px">مدربك في جيبك</p>
+    <div class="stores sm">
+      <a href="https://play.google.com/store/apps/details?id=com.elcoach.me"><img src="assets/google-play.png" width="564" height="168" alt="حمّل الكوتش من Google Play"></a>
+      <a href="https://apps.apple.com/app/apple-store/id1431776088"><img src="assets/app-store.png" width="564" height="168" alt="حمّل الكوتش من App Store"></a>
+    </div></div>
+  <div><h4>عن الكوتش</h4><a href="https://blog.elcoach.me/articles/">المدونة</a><a href="nutrition.html">نظام التغذية</a><a href="pricing.html">الاشتراكات</a><a href="foods.html">جدول الأكلات</a></div>
+  <div><h4>الخصوصية</h4><a href="https://elcoach.me/privacy">سياسة الخصوصية</a><a href="https://elcoach.me/termsandconditions">شروط الاستخدام</a></div>
+  <div><h4>تابعنا</h4><a href="https://www.instagram.com/ElCoachfit/">Instagram</a><a href="https://www.facebook.com/ElCoachfit">Facebook</a><a href="https://twitter.com/ElCoachfit">X (Twitter)</a></div>
+</div>
+<div class="copy"><span>© <span id="yr"></span> NutFit</span><span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span></div>
+</footer>
+<script src="assets/quiz.js"></script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>
