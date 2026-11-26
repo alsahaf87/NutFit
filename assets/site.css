@@ -389,3 +389,4 @@ nav a.l[aria-current=page] .ni{background:linear-gradient(145deg,#4fd07c,#259D4E
 @media(max-width:600px){.cvid{grid-template-columns:minmax(0,1fr);justify-items:center;text-align:center}.tags{justify-content:center}.sps{grid-template-columns:minmax(0,1fr)}.gr{grid-template-columns:minmax(0,1fr) 3.5em}.gr .bar{grid-column:1/-1;grid-row:2}.certs{grid-template-columns:repeat(2,minmax(0,1fr))}.cert img{height:160px}}
 @media(max-width:600px){nav a.l{font-size:10.5px;letter-spacing:-.2px}nav .links{gap:4px}}
 @media(max-width:600px){.kfacts div:last-child{grid-column:1/-1}}
+.kfacts b[dir=ltr]{font-size:clamp(18px,2.2vw,24px)}
