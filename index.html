@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NutFit | تغذية صحية</title>
+<meta name="description" content="موقع تغذية بالعربي: حاسبة السعرات والماكروز وكتلة الجسم والمياه، وجدول سعرات الأكلات، وتكوين وجبتك.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;700&family=Noto+Kufi+Arabic:wght@700;800&display=swap" rel="stylesheet">
+<style>
+/*
+VOICE: ودود وعملي، زي أخصائي تغذية بيكلمك في عيادة مريحة.
+IDEA: طبق الأكل الصحي المقسوم (نص خضار، ربع بروتين، ربع نشويات).
+PICTURE: طبق كبير مرسوم بالـSVG في أول الصفحة، والحاسبة بنتيجتها الكبيرة.
+COLOUR and TYPE: أخضر ورق شجر غامق + أبيض + طماطم كلون مميز؛ Noto Kufi للعناوين وReadex Pro للنص.
+LAYOUT: شريط تنقل، بطل بالطبق، حاسبة، جدول أكلات + طبقي، نصايح، فوتر.
+*/
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0c1510);--bg2:light-dark(#f1f7f2,#13201a);--ink:light-dark(#122018,#e9f2ec);--mute:light-dark(#4f6157,#9fb3a7);
+--leaf:light-dark(#14532d,#3fbf75);--leafbg:#14532d;--tomato:#e8452c;--lemon:#f6c445;--line:light-dark(#d8e5dc,#24352c);--card:light-dark(#ffffff,#16241d)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Readex Pro",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:"Noto Kufi Arabic","Readex Pro",sans-serif;line-height:1.25;margin:0 0 .5em;text-wrap:balance}
+h1{font-size:clamp(32px,5vw,52px)}h2{font-size:clamp(26px,3.4vw,36px)}h3{font-size:19px}
+p{margin:0 0 1em;max-width:65ch}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(36px,5vw,72px) max(5vw,16px)}
+.alt{background:var(--bg2)}
+/* nav */
+nav{position:sticky;top:0;z-index:5;background:var(--leafbg);color:#fff}
+nav .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:6px 22px;padding:12px max(5vw,16px)}
+.logo{font:800 20px "Noto Kufi Arabic",sans-serif;text-decoration:none;margin-inline-end:auto;display:flex;align-items:center;gap:8px}
+.logo i{width:14px;height:14px;border-radius:50%;background:var(--tomato);display:inline-block}
+nav a.l{text-decoration:none;opacity:.88;padding:6px 0}nav a.l:hover{opacity:1;text-decoration:underline}
+/* hero */
+.hero{background:var(--leafbg);color:#fff;padding-top:clamp(24px,4vw,56px)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.hero p{color:#d7eadc;font-size:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:999px;border:0;font:500 16px "Readex Pro",sans-serif;cursor:pointer;text-decoration:none}
+.btn.t{background:var(--tomato);color:#fff}.btn.g{background:transparent;color:#fff;box-shadow:inset 0 0 0 2px #ffffff88}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.plate{width:100%;max-width:520px;aspect-ratio:1;justify-self:center}
+.plate svg{width:100%;height:100%;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:18px;font-size:14px;color:#d7eadc}
+.legend span{display:flex;align-items:center;gap:8px}.legend b{width:12px;height:12px;border-radius:3px;display:inline-block}
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,3vw,40px);align-items:start}
+form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px}
+label{display:grid;gap:6px;font-size:14px;color:var(--mute)}
+label.full{grid-column:1/-1}
+input,select{font:16px "Readex Pro",sans-serif;min-height:46px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+input:focus-visible,select:focus-visible,.btn:focus-visible,.seg button:focus-visible,button:focus-visible{outline:3px solid var(--lemon);outline-offset:2px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--bg2);border-radius:12px;padding:4px}
+.seg button{min-height:42px;border:0;border-radius:9px;background:transparent;color:var(--ink);font:500 15px "Readex Pro",sans-serif;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--leaf);color:var(--bg)}
+.goal3{grid-template-columns:repeat(3,1fr)}
+.res{display:grid;gap:16px}
+.big{background:var(--leafbg);color:#fff;border-radius:20px;padding:24px}
+.big small{color:#cfe5d6;font-size:15px}
+.big .n{font:800 clamp(48px,8vw,80px)/1 "Noto Kufi Arabic",sans-serif;margin:8px 0;white-space:nowrap}
+.big .n span{font-size:20px;font-weight:700;margin-inline-start:6px}
+.mac{display:grid;gap:10px;margin-top:14px}
+.row{display:grid;grid-template-columns:7em minmax(0,1fr) 6.5em;gap:10px;align-items:center;font-size:15px}
+.bar{height:12px;border-radius:99px;background:#ffffff26;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;transition:width .5s}
+.row b{text-align:left;white-space:nowrap;direction:ltr}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+.tile small{color:var(--mute);font-size:13px}.tile .v{font:800 28px/1.2 "Noto Kufi Arabic",sans-serif;margin:4px 0;white-space:nowrap}
+.tile .v span{font-size:14px;font-weight:700}
+.chip{display:inline-block;font-size:13px;padding:2px 10px;border-radius:99px;background:var(--bg2)}
+.note{font-size:13px;color:var(--mute)}
+/* foods */
+.foods{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,36px);align-items:start}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}.tools input{flex:1 1 220px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px;background:var(--card);border-radius:16px;overflow:hidden}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:start}
+th{font-size:13px;color:var(--mute);font-weight:500;background:var(--bg2)}
+td.num,th.num{text-align:left;direction:ltr;white-space:nowrap}
+.add{min-height:44px;min-width:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--leaf);font:700 20px sans-serif;cursor:pointer}
+.add:hover{background:var(--leaf);color:var(--bg)}
+.myplate{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;position:sticky;top:84px}
+.pi{display:grid;grid-template-columns:minmax(0,1fr) 5.5em 44px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--line)}
+.pi input{min-height:40px;text-align:center;padding:0 4px}
+.rm{min-height:40px;border:0;background:transparent;color:var(--tomato);font-size:22px;cursor:pointer}
+.tot{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px;text-align:center}
+.tot div{background:var(--bg2);border-radius:12px;padding:8px 4px}.tot b{display:block;font-size:20px}.tot small{font-size:13px;color:var(--mute)}
+.empty{color:var(--mute);font-size:15px;padding:18px 0;text-align:center}
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.tip svg{width:44px;height:44px;margin-bottom:10px}
+.tip p{color:var(--mute);margin:0}
+footer{background:var(--leafbg);color:#d7eadc;font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:10px 30px;justify-content:space-between}
+@media(max-width:900px){.myplate{position:static}.foods,.calc{grid-template-columns:minmax(0,1fr)}.tips{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:600px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.plate{max-width:320px;order:2}form{grid-template-columns:minmax(0,1fr)}.tiles{grid-template-columns:minmax(0,1fr)}.tips{grid-template-columns:minmax(0,1fr)}nav a.l{font-size:14px}table{font-size:13px}.row{grid-template-columns:5.5em minmax(0,1fr) 6em}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar i{transition:none}.spin{animation:none!important}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{transform-origin:200px 200px;animation:spin 60s linear infinite}
+</style>
+</head>
+<body>
+
+<nav aria-label="القائمة الرئيسية"><div class="wrap">
+  <a class="logo" href="#top"><i></i>NutFit</a>
+  <a class="l" href="#calc">الحاسبة</a>
+  <a class="l" href="#foods">جدول الأكلات</a>
+  <a class="l" href="#tips">نصايح</a>
+</div></nav>
+
+<header class="hero band" id="top"><div class="wrap">
+  <div>
+    <h1>كُل صح من غير ما تحرم نفسك</h1>
+    <p>احسب احتياجك اليومي من السعرات والبروتين والمياه في ثواني، واعرف سعرات أكلاتك اليومية، وكوّن طبقك بنفسك.</p>
+    <div class="btns">
+      <a class="btn t" href="#calc">احسب احتياجك</a>
+      <a class="btn g" href="#foods">جدول السعرات</a>
+    </div>
+    <div class="legend">
+      <span><b style="background:#5cc27c"></b>نص الطبق خضار</span>
+      <span><b style="background:#e8452c"></b>ربع بروتين</span>
+      <span><b style="background:#f6c445"></b>ربع نشويات</span>
+    </div>
+  </div>
+  <div class="plate" aria-label="رسم لطبق صحي مقسوم">
+    <svg viewBox="0 0 400 400" role="img">
+      <defs>
+        <radialGradient id="pl" cx="45%" cy="40%"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe9e2"/></radialGradient>
+        <radialGradient id="sh" cx="50%" cy="50%"><stop offset=".7" stop-color="#000" stop-opacity=".35"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <g id="leaf"><path d="M0 0c10-14 30-14 36 0c-6 14-26 14-36 0z" fill="#3fa35f"/><path d="M2 0h32" stroke="#2a7a44" stroke-width="2"/></g>
+        <g id="tom"><circle r="13" fill="#e8452c"/><circle r="13" fill="none" stroke="#b92f1b" stroke-width="2"/><path d="M-5-11l5 4 5-4" stroke="#2a7a44" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+        <g id="grain"><ellipse rx="9" ry="4" fill="#f6c445"/><ellipse rx="9" ry="4" fill="none" stroke="#d9a21f" stroke-width="1.5"/></g>
+      </defs>
+      <circle cx="206" cy="214" r="180" fill="url(#sh)"/>
+      <circle cx="200" cy="200" r="178" fill="url(#pl)"/>
+      <circle cx="200" cy="200" r="148" fill="#f7faf8" stroke="#cddbd2" stroke-width="3"/>
+      <g class="spin">
+        <path d="M200 200 L200 52 A148 148 0 0 0 200 348 Z" fill="#5cc27c"/>
+        <path d="M200 200 L200 348 A148 148 0 0 0 348 200 Z" fill="#f6c445"/>
+        <path d="M200 200 L348 200 A148 148 0 0 0 200 52 Z" fill="#e8452c"/>
+        <g>
+          <use href="#leaf" transform="translate(95 120) rotate(-30)"/><use href="#leaf" transform="translate(70 200) rotate(10)"/>
+          <use href="#leaf" transform="translate(110 270) rotate(40)"/><use href="#leaf" transform="translate(140 175) rotate(-70)"/>
+          <use href="#tom" transform="translate(150 110)"/><use href="#tom" transform="translate(120 230)"/><use href="#tom" transform="translate(165 300)"/>
+          <circle cx="95" cy="165" r="9" fill="#2a7a44"/><circle cx="170" cy="250" r="8" fill="#2a7a44"/>
+        </g>
+        <g>
+          <use href="#grain" transform="translate(240 270) rotate(20)"/><use href="#grain" transform="translate(265 250) rotate(-30)"/>
+          <use href="#grain" transform="translate(290 230) rotate(60)"/><use href="#grain" transform="translate(230 300) rotate(-10)"/>
+          <use href="#grain" transform="translate(260 290) rotate(40)"/><use href="#grain" transform="translate(300 260) rotate(-50)"/>
+          <use href="#grain" transform="translate(220 240) rotate(80)"/><use href="#grain" transform="translate(275 310) rotate(15)"/>
+        </g>
+        <g fill="#b92f1b" opacity=".55">
+          <path d="M225 150c20-30 60-35 85-15c-5 25-40 45-80 35z"/><path d="M230 110c15-15 45-15 60 0c-10 15-40 18-60 0z"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band" id="calc"><div class="wrap">
+  <h2>حاسبة احتياجك اليومي</h2>
+  <p class="note">النتيجة بتتحدث أول ما تغيّر أي رقم. بياناتك بتتحفظ على جهازك بس.</p>
+  <div class="calc">
+    <form id="f" novalidate>
+      <label class="full">النوع
+        <div class="seg" id="sex">
+          <button type="button" data-v="m" aria-pressed="true">ذكر</button>
+          <button type="button" data-v="f" aria-pressed="false">أنثى</button>
+        </div>
+      </label>
+      <label>العمر (سنة)<input id="age" type="number" inputmode="numeric" min="15" max="90" value="28"></label>
+      <label>الطول (سم)<input id="h" type="number" inputmode="numeric" min="120" max="230" value="172"></label>
+      <label>الوزن (كجم)<input id="w" type="number" inputmode="decimal" min="35" max="250" value="78"></label>
+      <label>النشاط
+        <select id="act">
+          <option value="1.2">قليل الحركة (مكتب)</option>
+          <option value="1.375" selected>خفيف (رياضة ١-٣ أيام)</option>
+          <option value="1.55">متوسط (٣-٥ أيام)</option>
+          <option value="1.725">عالي (٦-٧ أيام)</option>
+          <option value="1.9">عالي جدًا (شغل بدني + تمرين)</option>
+        </select>
+      </label>
+      <label class="full">هدفك
+        <div class="seg goal3" id="goal">
+          <button type="button" data-v="lose" aria-pressed="false">نزول وزن</button>
+          <button type="button" data-v="keep" aria-pressed="true">ثبات</button>
+          <button type="button" data-v="gain" aria-pressed="false">زيادة عضل</button>
+        </div>
+      </label>
+    </form>
+
+    <div class="res" aria-live="polite">
+      <div class="big">
+        <small id="goalTxt">سعراتك اليومية للحفاظ على وزنك</small>
+        <div class="n"><output id="kcal">0</output><span>سعر حراري</span></div>
+        <div class="mac">
+          <div class="row"><span>بروتين</span><div class="bar"><i id="bp" style="background:#ff8a73"></i></div><b id="gp">0 g</b></div>
+          <div class="row"><span>كربوهيدرات</span><div class="bar"><i id="bc" style="background:#f6c445"></i></div><b id="gc">0 g</b></div>
+          <div class="row"><span>دهون</span><div class="bar"><i id="bf" style="background:#8fe0a8"></i></div><b id="gf">0 g</b></div>
+        </div>
+      </div>
+      <div class="tiles">
+        <div class="tile"><small>مؤشر كتلة الجسم</small><div class="v" id="bmi">0</div><span class="chip" id="bmiCat">—</span></div>
+        <div class="tile"><small>المياه يوميًا</small><div class="v"><span id="water">0</span> <span>لتر</span></div><span class="note" id="cups">—</span></div>
+        <div class="tile"><small>الحرق وقت الراحة</small><div class="v"><span id="bmr">0</span> <span>سعر</span></div><span class="note">BMR</span></div>
+      </div>
+      <p class="note">الحسابات بمعادلة Mifflin-St Jeor وهي تقديرية. لو عندك حالة صحية أو حامل أو مرضعة، ارجع لطبيب أو أخصائي تغذية.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band alt" id="foods"><div class="wrap">
+  <h2>جدول سعرات الأكلات وطبقي</h2>
+  <p class="note">القيم لكل ١٠٠ جرام وتقريبية. دوس + عشان تضيف الأكلة لطبقك وغيّر الكمية بالجرام.</p>
+  <div class="foods">
+    <div>
+      <div class="tools">
+        <input id="q" type="search" placeholder="دوّر على أكلة… مثلًا: فول" aria-label="بحث عن أكلة">
+        <select id="cat" aria-label="التصنيف"></select>
+      </div>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>الأكلة</th><th class="num">سعرات</th><th class="num">بروتين</th><th class="num">كارب</th><th class="num">دهون</th><th></th></tr></thead>
+          <tbody id="tb"></tbody>
+        </table>
+      </div>
+    </div>
+    <aside class="myplate" aria-label="طبقي">
+      <h3>طبقي</h3>
+      <div id="plist"></div>
+      <div class="tot">
+        <div><b id="tk">0</b><small>سعر</small></div>
+        <div><b id="tp">0</b><small>بروتين g</small></div>
+        <div><b id="tc">0</b><small>كارب g</small></div>
+        <div><b id="tf">0</b><small>دهون g</small></div>
+      </div>
+      <p class="note" id="share" style="margin-top:12px"></p>
+      <button class="btn" id="clr" type="button" style="background:var(--bg2);color:var(--ink);width:100%;margin-top:4px">فضّي الطبق</button>
+    </aside>
+  </div>
+</div></section>
+
+<section class="band" id="tips"><div class="wrap">
+  <h2>نصايح بسيطة تفرق</h2>
+  <div class="tips" id="tipList"></div>
+</div></section>
+
+<footer class="band"><div class="wrap">
+  <span>© <span id="yr"></span> NutFit</span>
+  <span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span>
+</div></footer>
+
+<script>
+{
+const $=id=>document.getElementById(id);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- calculator ---------- */
+const st=Object.assign({sex:'m',age:28,h:172,w:78,act:'1.375',goal:'keep'},store.get('nut-calc',{}));
+const seg=(id,key)=>{const el=$(id);const sync=()=>el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===st[key]));
+  el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st[key]=b.dataset.v;sync();calc()});sync()};
+seg('sex','sex');seg('goal','goal');
+['age','h','w','act'].forEach(k=>{$(k).value=st[k];$(k).addEventListener('input',()=>{st[k]=$(k).value;calc()})});
+const fmt=n=>Math.round(n).toLocaleString('ar-EG');
+const goalTxt={lose:'سعراتك اليومية لنزول الوزن (عجز حوالي ٥٠٠ سعر)',keep:'سعراتك اليومية للحفاظ على وزنك',gain:'سعراتك اليومية لزيادة العضل (زيادة حوالي ٣٠٠ سعر)'};
+function calc(){
+  const a=+st.age,h=+st.h,w=+st.w,act=+st.act;
+  if(!(a>0&&h>0&&w>0))return;
+  const bmr=10*w+6.25*h-5*a+(st.sex==='m'?5:-161);
+  const tdee=bmr*act;
+  let k=tdee+(st.goal==='lose'?-500:st.goal==='gain'?300:0);
+  const floor=st.sex==='m'?1500:1200; if(k<floor)k=floor;
+  const pPerKg=st.goal==='lose'?2:st.goal==='gain'?1.8:1.6;
+  const p=w*pPerKg,f=k*.25/9,c=Math.max(0,(k-p*4-f*9)/4);
+  $('kcal').textContent=fmt(k);$('goalTxt').textContent=goalTxt[st.goal];
+  $('gp').textContent=Math.round(p)+' g';$('gc').textContent=Math.round(c)+' g';$('gf').textContent=Math.round(f)+' g';
+  const tot=p*4+c*4+f*9||1;
+  $('bp').style.width=(p*4/tot*100)+'%';$('bc').style.width=(c*4/tot*100)+'%';$('bf').style.width=(f*9/tot*100)+'%';
+  const bmi=w/((h/100)**2);
+  $('bmi').textContent=bmi.toFixed(1);
+  $('bmiCat').textContent=bmi<18.5?'نحافة':bmi<25?'وزن طبيعي':bmi<30?'زيادة وزن':'سمنة';
+  const L=w*0.035;$('water').textContent=L.toFixed(1);$('cups').textContent='حوالي '+fmt(L*4)+' كوباية';
+  $('bmr').textContent=fmt(bmr);
+  st.kcal=k;store.set('nut-calc',st);plateRender();
+}
+
+/* ---------- foods ---------- */
+// [name, category, kcal, protein, carbs, fat] per 100 g — approximate values
+const FOODS=[
+['أرز أبيض مطبوخ','نشويات',130,2.7,28,0.3],['مكرونة مسلوقة','نشويات',158,5.8,31,0.9],['خبز بلدي / عربي','نشويات',275,9,55,1.2],
+['شوفان','نشويات',389,16.9,66,6.9],['بطاطس مسلوقة','نشويات',87,1.9,20,0.1],['بطاطا مشوية','نشويات',90,2,21,0.2],
+['فول مدمس','بقوليات',110,7.6,19.6,0.4],['عدس مطبوخ','بقوليات',116,9,20,0.4],['حمص مطبوخ','بقوليات',164,8.9,27,2.6],['طعمية (فلافل)','بقوليات',333,13.3,31.8,17.8],
+['صدر دجاج مشوي','بروتين',165,31,0,3.6],['بيض مسلوق','بروتين',155,13,1.1,11],['لحم بقري مشوي','بروتين',250,26,0,15],
+['سمك بلطي مشوي','بروتين',128,26,0,2.7],['تونة معلبة بالماء','بروتين',116,26,0,1],['كبدة مشوية','بروتين',175,27,5,5],
+['زبادي','ألبان',61,3.5,4.7,3.3],['جبنة قريش','ألبان',98,11,3.4,4.3],['لبن كامل الدسم','ألبان',61,3.2,4.8,3.3],['جبنة رومي','ألبان',390,25,1,32],
+['موز','فواكه',89,1.1,23,0.3],['تفاح','فواكه',52,0.3,14,0.2],['برتقال','فواكه',47,0.9,12,0.1],['تمر','فواكه',282,2.5,75,0.4],['بطيخ','فواكه',30,0.6,7.6,0.2],
+['خيار','خضار',15,0.7,3.6,0.1],['طماطم','خضار',18,0.9,3.9,0.2],['خس','خضار',15,1.4,2.9,0.2],['بروكلي مسلوق','خضار',35,2.4,7,0.4],['جزر','خضار',41,0.9,10,0.2],
+['زيت زيتون','دهون ومكسرات',884,0,0,100],['لوز','دهون ومكسرات',579,21,22,50],['زبدة فول سوداني','دهون ومكسرات',588,25,20,50],['طحينة','دهون ومكسرات',595,17,21,54]
+];
+const cats=['الكل',...new Set(FOODS.map(f=>f[1]))];
+$('cat').innerHTML=cats.map(c=>`<option>${c}</option>`).join('');
+function renderTable(){
+  const q=$('q').value.trim(),c=$('cat').value;
+  const rows=FOODS.map((f,i)=>[f,i]).filter(([f])=>(c==='الكل'||f[1]===c)&&(!q||f[0].includes(q)));
+  $('tb').innerHTML=rows.length?rows.map(([f,i])=>`<tr><td>${f[0]}</td><td class="num">${f[2]}</td><td class="num">${f[3]}</td><td class="num">${f[4]}</td><td class="num">${f[5]}</td><td><button class="add" data-i="${i}" aria-label="أضف ${f[0]} لطبقي">+</button></td></tr>`).join('')
+    :`<tr><td colspan="6" class="empty">مفيش أكلة بالاسم ده. جرّب كلمة تانية.</td></tr>`;
+}
+$('q').addEventListener('input',renderTable);$('cat').addEventListener('change',renderTable);
+
+/* ---------- my plate ---------- */
+let plate=store.get('nut-plate',[]).filter(p=>FOODS[p.i]);
+$('tb').addEventListener('click',e=>{const b=e.target.closest('.add');if(!b)return;const i=+b.dataset.i;const ex=plate.find(p=>p.i===i);if(ex)ex.g+=100;else plate.push({i,g:100});plateRender()});
+$('plist').addEventListener('input',e=>{const x=e.target.closest('input');if(!x)return;plate[+x.dataset.k].g=Math.max(0,+x.value||0);plateTotals()});
+$('plist').addEventListener('click',e=>{const b=e.target.closest('.rm');if(!b)return;plate.splice(+b.dataset.k,1);plateRender()});
+$('clr').addEventListener('click',()=>{plate=[];plateRender()});
+function plateRender(){
+  $('plist').innerHTML=plate.length?plate.map((p,k)=>`<div class="pi"><span>${FOODS[p.i][0]}</span><input type="number" inputmode="numeric" min="0" step="10" value="${p.g}" data-k="${k}" aria-label="الكمية بالجرام"><button class="rm" type="button" data-k="${k}" aria-label="شيل">×</button></div>`).join('')
+    :'<div class="empty">طبقك فاضي. ضيف أكلات من الجدول.</div>';
+  plateTotals();
+}
+function plateTotals(){
+  const t=[0,0,0,0];plate.forEach(p=>{const f=FOODS[p.i];for(let j=0;j<4;j++)t[j]+=f[j+2]*p.g/100});
+  $('tk').textContent=fmt(t[0]);$('tp').textContent=fmt(t[1]);$('tc').textContent=fmt(t[2]);$('tf').textContent=fmt(t[3]);
+  $('share').textContent=st.kcal&&t[0]?`الطبق ده حوالي ${fmt(t[0]/st.kcal*100)}٪ من سعراتك اليومية.`:'';
+  store.set('nut-plate',plate);
+}
+
+/* ---------- tips ---------- */
+const ic=(c,d)=>`<svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="22" fill="${c}" opacity=".18"/><path d="${d}" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const TIPS=[
+['#2f9e5b','M22 10c-6 8-9 12-9 17a9 9 0 0 0 18 0c0-5-3-9-9-17z','اشرب مية قبل الأكل','كوباية مية قبل الوجبة بنص ساعة بتساعدك تحس بالشبع وتقلل الأكل الزيادة.'],
+['#e8452c','M12 26h20M14 26a8 8 0 0 0 16 0M22 12v6','نص طبقك خضار','الخضار سعراتها قليلة وأليافها عالية، فبتملا الطبق والمعدة من غير سعرات كتير.'],
+['#d9a21f','M14 30l16-16M18 14h12v12','بروتين في كل وجبة','بيض، فول، زبادي، فراخ أو سمك. البروتين بيحافظ على العضل ويطول إحساس الشبع.'],
+['#2f9e5b','M22 12v10l6 4M22 32a10 10 0 1 1 0-20','كُل على مهلك','المخ بياخد حوالي ٢٠ دقيقة عشان يحس بالشبع، فالأكل بسرعة بيخليك تاكل أكتر.'],
+['#e8452c','M14 14l16 16M30 14L14 30','قلل المشروبات المحلاة','العصاير المعلبة والمياه الغازية فيها سكر كتير وبتضيف سعرات من غير شبع.'],
+['#d9a21f','M12 30c4-10 16-10 20 0M16 16h12','النوم جزء من الدايت','قلة النوم بتزود الجوع والرغبة في الحلويات. حاول تنام ٧ ساعات أو أكتر.']
+];
+$('tipList').innerHTML=TIPS.map(t=>`<div class="tip">${ic(t[0],t[1])}<h3>${t[2]}</h3><p>${t[3]}</p></div>`).join('');
+
+$('yr').textContent=new Date().getFullYear();
+renderTable();calc();
+}
+</script>
+</body>
+</html>
