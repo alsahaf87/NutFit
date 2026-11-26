@@ -308,3 +308,38 @@ nav a.l[aria-current=page] .ni{background:linear-gradient(145deg,#4fd07c,#259D4E
 }
 @media(max-width:600px){nav a.l{font-size:11px;padding:7px 1px 5px}nav a.l .ni{width:34px;height:34px}nav a.l svg{width:18px;height:18px}}
 @media(max-width:600px){nav a.l .lw{display:none}}nav a.l .lw{font-style:normal}
+/* ===== hero animation ===== */
+.stage{position:relative;width:100%;max-width:580px;justify-self:center;align-self:center;z-index:1;margin-bottom:clamp(16px,3vw,40px)}
+.stage svg{width:100%;height:auto;display:block;overflow:visible}
+.stage .tx{font:700 20px "Cairo",sans-serif;fill:#1b1b1b}.stage .tx.w{fill:#fff;font-size:21px}.stage .tx.big{font-size:32px;font-weight:900;fill:#111}
+.stage .nm{font:800 16px "Cairo",sans-serif;fill:#1b1b1b;text-anchor:middle;paint-order:stroke;stroke:#fff;stroke-width:5px}
+.stage g,.stage image,.stage path,.stage circle{transform-box:fill-box;transform-origin:center}
+.sc1{animation:nfS1 18s infinite}.sc2{animation:nfS2 18s infinite}.sc3{animation:nfS3 18s infinite}
+@keyframes nfS1{0%,31%{opacity:1}34%,97%{opacity:0}100%{opacity:1}}
+@keyframes nfS2{0%,32%{opacity:0}35%,70%{opacity:1}73%,100%{opacity:0}}
+@keyframes nfS3{0%,71%{opacity:0}74%,97%{opacity:1}100%{opacity:0}}
+.bob{animation:nfBob 2.4s ease-in-out infinite}.bob2{animation:nfBob 2s ease-in-out infinite}
+@keyframes nfBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.blink{animation:nfBlink 4s infinite}@keyframes nfBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.talk{animation:nfTalk .32s infinite}@keyframes nfTalk{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.3)}}
+.wave{animation:nfWave 1.2s ease-in-out infinite;transform-origin:100% 100%!important}.wave2{animation:nfWave 1.4s ease-in-out infinite reverse;transform-origin:0 100%!important}
+@keyframes nfWave{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
+.b1{animation:nfB1 18s infinite}.b2{animation:nfB2 18s infinite}.b3{animation:nfB3 18s infinite}
+@keyframes nfB1{0%,3%{opacity:0;transform:scale(.6)}6%,30%{opacity:1;transform:scale(1)}33%,100%{opacity:0;transform:scale(1)}}
+@keyframes nfB2{0%,14%{opacity:0;transform:scale(.6)}17%,30%{opacity:1;transform:scale(1)}33%,100%{opacity:0;transform:scale(1)}}
+@keyframes nfB3{0%,50%{opacity:0;transform:translateY(20px)}53%,69%{opacity:1;transform:translateY(0)}72%,100%{opacity:0}}
+.fat circle{animation:nfFat 18s infinite}
+@keyframes nfFat{0%,42%{transform:scale(1);opacity:1}56%,100%{transform:scale(0);opacity:0}}
+.sad,.tired{animation:nfSad 18s infinite}.happy,.sparkle{animation:nfHappy 18s infinite}
+@keyframes nfSad{0%,52%{opacity:1}55%,100%{opacity:0}}
+@keyframes nfHappy{0%,53%{opacity:0;transform:scale(.6)}57%,100%{opacity:1;transform:scale(1)}}
+.fl1{animation:nfInL 18s infinite}.fl3{animation:nfInL 18s infinite .25s}.fl2{animation:nfInR 18s infinite .12s}.fl4{animation:nfInR 18s infinite .37s}
+@keyframes nfInL{0%,34%{transform:translateX(-260px);opacity:0}40%,100%{transform:translateX(0);opacity:1}}
+@keyframes nfInR{0%,34%{transform:translateX(260px);opacity:0}40%,100%{transform:translateX(0);opacity:1}}
+.pop{animation:nfPop 18s infinite}
+@keyframes nfPop{0%,72%{transform:scale(.4) rotate(-8deg)}77%{transform:scale(1.06) rotate(2deg)}80%,100%{transform:scale(1) rotate(0)}}
+.stage-pause{position:absolute;bottom:4px;inset-inline-start:4px;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.9);box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer;display:grid;place-items:center;z-index:2}
+.stage-pause svg{width:18px;height:18px;fill:none;stroke:#111;stroke-width:2.6;stroke-linecap:round}
+.stage.paused *{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.stage *{animation:none!important}.sc2,.sc3{opacity:0}.stage-pause{display:none}}
+@media(max-width:700px){.hero .stage{order:-1;max-width:420px;margin:0 auto 8px}}
