@@ -45,9 +45,9 @@ function render(o){
     <div class="exrx"><span><b>${A(e.sets)}</b> مجموعات</span><span><b>${e.reps}</b> عدة</span><span>راحة <b>${e.rest}</b></span></div></div></li>`;
   const days=P.map((d,i)=>`<details class="trday"${i===0?' open':''}><summary><span class="dn">${d.day}</span><b>${d.title}</b><small>${A(d.ex.length)} تمارين</small></summary><ol class="exl">${d.ex.map(card).join('')}</ol></details>`).join('');
   const cardio=o.goal==='lose'||o.goal==='recomp'?`<li>كارديو: مشي سريع ٢٠–٣٠ دقيقة بعد التمرين أو في أيام الراحة، و٨–١٠ آلاف خطوة في اليوم.</li>`:`<li>كارديو خفيف ١٠–٢٠ دقيقة يومين في الأسبوع لصحة القلب.</li>`;
-  const msg=`أهلًا د. محمد، عملت نظام تمرين على NutFit وعايز تكمل معايا.\nالهدف: ${GOAL[o.goal]} · المكان: ${PLACE[o.place]} · ${n} أيام في الأسبوع.`;
+  const msg=`أهلًا د. محمد، عملت نظام تمرين على NutFit وعايز تكمل معايا.\nالهدف: ${GOAL[o.goal]}، المكان: ${PLACE[o.place]}، ${n} أيام في الأسبوع.`;
   const WL=window.NF&&NF.waLink?NF.waLink(msg):'book.html';
-  $('trout').innerHTML=`<div class="trhead"><span class="eyebrow">برنامجك جاهز</span><h2>${A(n)} أيام · ${GOAL[o.goal]} · ${PLACE[o.place]}</h2>
+  $('trout').innerHTML=`<div class="trhead"><span class="eyebrow">برنامجك جاهز</span><h2>${A(n)} أيام، ${GOAL[o.goal]}، ${PLACE[o.place]}</h2>
   <div class="trweek">${DAYS.map(d=>{const x=P.find(p=>p.day===d);return `<span class="${x?'on':''}"><b>${d}</b>${x?x.title.split(' (')[0]:'راحة'}</span>`}).join('')}</div></div>
   <div class="trdays">${days}</div>
   <div class="iban"><h3>قواعد البرنامج</h3><ul>

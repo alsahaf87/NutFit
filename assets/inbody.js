@@ -86,7 +86,7 @@ function refer(cond,a){
   return `<div class="ibref"><h2>حالتك محتاجة نظام مخصوص</h2><p>${why}، النظام الآلي مش مناسب ليك، لأن السعرات والبروتين بيتحددوا حسب حالتك وأدويتك وتحاليلك. د. محمد هيعملك نظام آمن بنفسه.</p><a class="btn" href="${L}">ابعت بياناتك لد. محمد على الواتساب</a></div>`;
 }
 function summary(){
-  const s=[`النوع: ${F.sex==='m'?'ذكر':'أنثى'} · العمر: ${F.age} · الطول: ${F.h} سم · الوزن: ${F.w} كجم`];
+  const s=[`النوع: ${F.sex==='m'?'ذكر':'أنثى'}، العمر: ${F.age}، الطول: ${F.h} سم، الوزن: ${F.w} كجم`];
   if(F.pbf)s.push(`نسبة الدهون: ${F.pbf}٪`);if(F.smm)s.push(`كتلة العضلات: ${F.smm} كجم`);if(F.bfm)s.push(`كتلة الدهون: ${F.bfm} كجم`);
   if(F.bmr)s.push(`الحرق وقت الراحة: ${F.bmr} سعر`);if(F.vfl)s.push(`دهون الأحشاء: ${F.vfl}`);
   s.push(`الهدف: ${GOALS[goal]}`);return s.join('\n');
@@ -126,17 +126,17 @@ function build(){
       const used=rows;const score=r=>{const q=port(k*share/r.k)[0];return Math.abs(r.p*q-p*share)+(used.includes(r.id)?99:0)};
       const r=cand.sort((a,b)=>score(a)-score(b))[0];const [x,lbl]=port(k*share/r.k);
       t[0]+=r.k*x;t[1]+=r.p*x;t[2]+=r.c*x;t[3]+=r.f*x;
-      rows+=`<li><img src="assets/food/${r.id}.webp" alt="" loading="lazy" width="64" height="64"><span><small>${m}</small><a href="recipes.html#${r.id}">${esc(r.n)}</a><em>${lbl} · ${A(r.k*x)} سعر · ${A(r.p*x)} جم بروتين</em></span></li>`});
+      rows+=`<li><img src="assets/food/${r.id}.webp" alt="" loading="lazy" width="64" height="64"><span><small>${m}</small><a href="recipes.html#${r.id}">${esc(r.n)}</a><em>${lbl}، ${A(r.k*x)} سعر، ${A(r.p*x)} جم بروتين</em></span></li>`});
     if(t[1]>p*1.35){rows+=`<li class="boost"><span class="bi">i</span><span><small>ملاحظة</small><b>بروتين اليوم أعلى من احتياجك</b><em>ممكن تقلل حصة البروتين في العشا للنص.</em></span></li>`}
     const gap=p-t[1];
     if(gap>8){const big=gap>22;const g=big?Math.round(gap/0.31/25)*25:Math.min(400,Math.round(gap/0.10/50)*50);
       const it=big?['صدر فراخ مشوي',1.65,0.31,0,0.036]:['زبادي يوناني لايت',0.59,0.10,0.036,0.004];
       t[0]+=it[1]*g;t[1]+=it[2]*g;t[2]+=it[3]*g;t[3]+=it[4]*g;
-      rows+=`<li class="boost"><span class="bi">+</span><span><small>إضافة بروتين</small><b>${it[0]} ${A(g)} جم</b><em>${A(it[1]*g)} سعر · ${A(it[2]*g)} جم بروتين، مع أي وجبة</em></span></li>`}
+      rows+=`<li class="boost"><span class="bi">+</span><span><small>إضافة بروتين</small><b>${it[0]} ${A(g)} جم</b><em>${A(it[1]*g)} سعر، ${A(it[2]*g)} جم بروتين، مع أي وجبة</em></span></li>`}
     t.forEach((v,i)=>totW[i]+=v);
-    days+=`<details class="ibday"${d===0?' open':''}><summary><b>${DAYS[d]}</b><span>${A(t[0])} سعر · ${A(t[1])} جم بروتين</span></summary><ul>${rows}</ul></details>`;
+    days+=`<details class="ibday"${d===0?' open':''}><summary><b>${DAYS[d]}</b><span>${A(t[0])} سعر، ${A(t[1])} جم بروتين</span></summary><ul>${rows}</ul></details>`;
   }
-  const waMsg=`أهلًا د. محمد، عملت نظام أسبوع من تحليل InBody على NutFit وعايز أكمل رحلة التغيير معاك.\n${summary()}\nالسعرات المقترحة: ${k} سعر · بروتين ${Math.round(p)} جم`;
+  const waMsg=`أهلًا د. محمد، عملت نظام أسبوع من تحليل InBody على NutFit وعايز أكمل رحلة التغيير معاك.\n${summary()}\nالسعرات المقترحة: ${k} سعر، بروتين ${Math.round(p)} جم`;
   const WL=window.NF&&NF.waLink?NF.waLink(waMsg):'book.html';
   $('ibplanbody').innerHTML=`
   <div class="ibhead"><span class="eyebrow">نظامك جاهز</span><h2>نظام أكل أسبوع لهدف: ${GOALS[goal]}</h2></div>

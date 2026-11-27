@@ -10,7 +10,7 @@ const wa=t=>window.NF&&NF.waLink?NF.waLink(t):'book.html';
 const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
 
 const box=el('div','asst');box.hidden=true;box.setAttribute('role','dialog');box.setAttribute('aria-label','المساعد الذكي د. محمد الصحاف');
-box.innerHTML=`<div class="ah"><img src="${AV}" alt="" width="44" height="44"><div><b>د. محمد الصحاف</b><small><i class="dot"></i>مساعد ذكي آلي · بيرد فورًا</small></div><button type="button" class="ax" aria-label="إغلاق">×</button></div>
+box.innerHTML=`<div class="ah"><img src="${AV}" alt="" width="44" height="44"><div><b>د. محمد الصحاف</b><small><i class="dot"></i>مساعد ذكي آلي، بيرد فورًا</small></div><button type="button" class="ax" aria-label="إغلاق">×</button></div>
 <div class="ab" aria-live="polite"></div><div class="aq"></div>
 <form class="af"><input type="text" placeholder="اكتب سؤالك…" aria-label="اكتب سؤالك"><button type="submit" aria-label="إرسال">‹</button></form>`;
 const launch=el('button','alaunch',`<img src="${AV}" alt="" width="52" height="52"><span><b>اسأل د. محمد</b><small>المساعد الذكي</small></span>`);launch.type='button';
@@ -43,7 +43,7 @@ async function calc(){
   set('nut-calc',Object.assign(get('nut-calc',{}),{sex:c.sex,age:c.age,h:c.h,w:c.w,act:String(c.act),goal:c.goal==='gain'?'gain':'lose',kcal:k}));
   await bot(`<div class="ares"><span>احتياجك اليومي</span><b>${A(k)}</b><small>سعر حراري</small></div>
   <div class="amac"><span>بروتين<b>${A(p)} جم</b></span><span>كارب<b>${A(cb)} جم</b></span><span>دهون<b>${A(f)} جم</b></span></div>
-  <small class="anote">الحرق وقت الراحة ≈ ${A(Math.round(bmr))} · مؤشر كتلة الجسم ${A(bmi.toFixed(1))}${c.goal==='lose'?' · عجز ٥٠٠ سعر ≈ نص كيلو في الأسبوع':''}. الأرقام تقديرية للأصحاء.</small>`,null,700);
+  <small class="anote">الحرق وقت الراحة ≈ ${A(Math.round(bmr))}، مؤشر كتلة الجسم ${A(bmi.toFixed(1))}${c.goal==='lose'?'، عجز ٥٠٠ سعر ≈ نص كيلو في الأسبوع':''}. الأرقام تقديرية للأصحاء.</small>`,null,700);
   bot('تحب أعملك إيه بعد كده؟',[['🥗 نظام أكل بالأرقام دي','inbody.html#manual'],['🏋️ برنامج تمرين',train],['📋 أرسل النتيجة لد. محمد',()=>{location.href=wa(`أهلًا د. محمد، حسبت احتياجي على NutFit: ${k} سعر، بروتين ${p} جم. عايز أبدأ معاك.`)}],['القائمة',()=>home()]]);
 }
 /* ---- meal plan ---- */
