@@ -54,7 +54,7 @@ function setProg(p,t){$('ibbar').style.width=p+'%';$('ibmsg').textContent=t}
 function onFile(e){const f=e.target.files&&e.target.files[0];if(!f)return;
   $('ibprev').src=URL.createObjectURL(f);$('ibprev').hidden=false;$('ibprog').classList.remove('warn');ocr(f);e.target.value=''}
 $('ibcam').addEventListener('change',onFile);$('ibgal').addEventListener('change',onFile);
-$('ibmanual').addEventListener('click',()=>{$('ibprog').hidden=true;show('ibform')});
+$('ibmanual').addEventListener('click',()=>{$('ibprog').hidden=true;fill();show('ibform')});
 
 /* ---------- 2. form ---------- */
 const keys=['age','h','w','pbf','smm','bfm','bmr','vfl'];
@@ -156,4 +156,8 @@ function build(){
   $('ibprint').addEventListener('click',()=>{document.querySelectorAll('.ibday').forEach(x=>x.open=true);window.print()});
   $('ibredo').addEventListener('click',()=>show('ibform'));
 }
+
+/* prefill from calculator / assistant */
+try{const c=JSON.parse(localStorage.getItem('nut-calc')||'{}');if(c.age)F.age=c.age;if(c.h)F.h=c.h;if(c.w)F.w=c.w;if(c.sex==='m'||c.sex==='f')F.sex=c.sex;
+if(location.hash==='#manual')setTimeout(()=>$('ibmanual').click(),50)}catch(e){}
 }

@@ -52,13 +52,14 @@
 <footer><div class="wrap">
   <div><a class="flogo" href="index.html"><img src="assets/brand/logo-stack.webp" width="600" height="510" alt="NutFit — Dr. Mohamed Alsahaf" loading="lazy"></a></div>
   <div><h4>NutFit</h4><a href="about.html">عن د. محمد</a><a href="start.html">ابدأ رحلتك</a><a href="pricing.html">الاشتراكات</a><a href="book.html">احجز استشارة</a><a href="nutrition.html">نظام التغذية</a></div>
-  <div><h4>مجانًا</h4><a href="index.html#calc">حاسبة السعرات</a><a href="inbody.html">نظامك من InBody</a><a href="tools.html">حاسبات التغذية</a><a href="foods.html">جدول الأكلات</a><a href="recipes.html">الوصفات</a><a href="articles.html">المقالات</a><a href="assets/NutFit-7-day-guide.pdf" download>دليل الأسبوع الصحي</a><a href="references.html">المراجع العلمية</a></div>
+  <div><h4>مجانًا</h4><a href="index.html#calc">حاسبة السعرات</a><a href="inbody.html">نظامك من InBody</a><a href="training.html">برنامج تمرين بالصور</a><a href="tools.html">حاسبات التغذية</a><a href="foods.html">جدول الأكلات</a><a href="recipes.html">الوصفات</a><a href="articles.html">المقالات</a><a href="assets/NutFit-7-day-guide.pdf" download>دليل الأسبوع الصحي</a><a href="references.html">المراجع العلمية</a></div>
   <div id="social"></div>
 </div>
 <div class="copy"><span>© <span id="yr"></span> NutFit · Dr. Mohamed Alsahaf</span><span><a href="references.html">المراجع العلمية</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a></span><span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span></div>
 </footer>
 <script src="assets/config.js"></script>
 <script src="assets/common.js"></script>
+<script src="assets/assistant.js" defer></script>
 <script>{const $=i=>document.getElementById(i),A=n=>n.toLocaleString('ar-EG',{maximumFractionDigits:1});let sex='m';
 $('fsex').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;sex=b.dataset.v;$('fsex').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('fhipL').hidden=sex!=='f';calc()});
 function calc(){const h=+$('fh').value,n=+$('fn').value,w=+$('fw').value,hp=+$('fhip').value;let bf=NaN;
