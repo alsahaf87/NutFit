@@ -35,27 +35,27 @@
   <div class="tnav"><a href="index.html#calc">السعرات والماكروز</a><a href="#fat">نسبة الدهون</a><a href="#ideal">الوزن المثالي</a><a href="#protein">البروتين</a><a href="#water">المية</a><a href="foods.html">جدول الأكلات</a></div>
 </div></header>
 <section class="band"><div class="wrap tgrid">
-  <div class="tool" id="fat"><h2>نسبة الدهون في الجسم</h2><p class="note">بطريقة قياسات البحرية الأمريكية (شريط قياس).</p>
+  <div class="tool" id="fat"><h2>نسبة الدهون في الجسم</h2><p class="note">بطريقة قياسات البحرية الأمريكية (Hodgdon & Beckett). <a href="references.html#calc">المصدر</a></p>
     <div class="seg" id="fsex"><button type="button" data-v="m" aria-pressed="true">ذكر</button><button type="button" data-v="f" aria-pressed="false">أنثى</button></div>
     <div class="tin"><label>الطول (سم)<input id="fh" type="number" inputmode="decimal" value="175"></label><label>الرقبة (سم)<input id="fn" type="number" inputmode="decimal" value="38"></label><label>الوسط عند السرة (سم)<input id="fw" type="number" inputmode="decimal" value="90"></label><label id="fhipL" hidden>الأرداف (سم)<input id="fhip" type="number" inputmode="decimal" value="100"></label></div>
     <div class="tres"><b id="fout">—</b><span id="fcat"></span></div></div>
-  <div class="tool" id="ideal"><h2>الوزن المثالي</h2><p class="note">المدى الصحي حسب مؤشر كتلة الجسم (١٨٫٥ – ٢٤٫٩).</p>
+  <div class="tool" id="ideal"><h2>الوزن المثالي</h2><p class="note">المدى الصحي حسب تصنيف منظمة الصحة العالمية لمؤشر كتلة الجسم (١٨٫٥ – ٢٤٫٩). <a href="references.html#calc">المصدر</a></p>
     <div class="tin"><label>الطول (سم)<input id="ih" type="number" inputmode="decimal" value="170"></label></div>
     <div class="tres"><b id="iout">—</b><span>كجم</span></div></div>
   <div class="tool" id="protein"><h2>البروتين اليومي</h2>
     <div class="tin"><label>الوزن (كجم)<input id="pw" type="number" inputmode="decimal" value="80"></label><label>نشاطك<select id="pa"><option value="0.8">قليل الحركة</option><option value="1.2">نشاط خفيف</option><option value="1.6" selected>بتتمرن بانتظام</option><option value="2">بناء عضل / نزول وزن مع تمرين</option></select></label></div>
-    <div class="tres"><b id="pout">—</b><span>جم في اليوم</span></div><p class="note">مرضى الكلى يحددوا احتياجهم مع الطبيب.</p></div>
+    <div class="tres"><b id="pout">—</b><span>جم في اليوم</span></div><p class="note">حسب ISSN Position Stand (2017) والاحتياجات المرجعية DRIs. مرضى الكلى يحددوا احتياجهم مع الطبيب. <a href="references.html#studies">المصدر</a></p></div>
   <div class="tool" id="water"><h2>المية اليومية</h2>
     <div class="tin"><label>الوزن (كجم)<input id="ww" type="number" inputmode="decimal" value="75"></label><label>تمرين في اليوم (دقيقة)<input id="wt" type="number" inputmode="numeric" value="30"></label><label>الجو<select id="wc"><option value="0">معتدل</option><option value="0.5">حار</option></select></label></div>
-    <div class="tres"><b id="wout">—</b><span>لتر</span></div><p class="note" id="wcup"></p></div>
+    <div class="tres"><b id="wout">—</b><span>لتر</span></div><p class="note" id="wcup"></p><p class="note">تقدير عملي مبني على الاحتياجات المرجعية للمية (National Academies). <a href="references.html#guides">المصدر</a></p></div>
 </div></section>
 <footer><div class="wrap">
   <div><a class="flogo" href="index.html"><img src="assets/brand/logo-stack.webp" width="600" height="510" alt="NutFit — Dr. Mohamed Alsahaf" loading="lazy"></a></div>
   <div><h4>NutFit</h4><a href="about.html">عن د. محمد</a><a href="start.html">ابدأ رحلتك</a><a href="pricing.html">الاشتراكات</a><a href="book.html">احجز استشارة</a><a href="nutrition.html">نظام التغذية</a></div>
-  <div><h4>مجانًا</h4><a href="index.html#calc">حاسبة السعرات</a><a href="tools.html">حاسبات التغذية</a><a href="foods.html">جدول الأكلات</a><a href="recipes.html">الوصفات</a><a href="articles.html">المقالات</a><a href="assets/NutFit-7-day-guide.pdf" download>دليل الأسبوع الصحي</a></div>
+  <div><h4>مجانًا</h4><a href="index.html#calc">حاسبة السعرات</a><a href="tools.html">حاسبات التغذية</a><a href="foods.html">جدول الأكلات</a><a href="recipes.html">الوصفات</a><a href="articles.html">المقالات</a><a href="assets/NutFit-7-day-guide.pdf" download>دليل الأسبوع الصحي</a><a href="references.html">المراجع العلمية</a></div>
   <div id="social"></div>
 </div>
-<div class="copy"><span>© <span id="yr"></span> NutFit · Dr. Mohamed Alsahaf</span><span><a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a></span><span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span></div>
+<div class="copy"><span>© <span id="yr"></span> NutFit · Dr. Mohamed Alsahaf</span><span><a href="references.html">المراجع العلمية</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a></span><span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span></div>
 </footer>
 <script src="assets/config.js"></script>
 <script src="assets/common.js"></script>
