@@ -557,11 +557,11 @@ label[hidden],[hidden]{display:none!important}
 .ibhero2{padding-top:clamp(16px,3vw,32px)}
 
 /* ===== Doctor portrait ===== */
-.cvmark.ph{width:280px;height:336px;border-radius:28px;overflow:hidden;background:#fff;border:1px solid #e6ece8;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:0;flex:none}
+.cvmark.ph{width:280px;height:336px;border-radius:28px;overflow:hidden;background:#1b2433;border:0;box-shadow:0 18px 40px rgba(0,0,0,.18);padding:0;flex:none}
 .cvmark.ph img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
 @media(max-width:700px){.cvmark.ph{width:200px;height:240px;margin-inline:auto}}
 .drband .wrap{display:grid;grid-template-columns:300px 1fr;gap:40px;align-items:center}
-.drband img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 0;border-radius:28px;background:#fff;border:1px solid #e6ece8;box-shadow:0 18px 40px rgba(0,0,0,.15)}
+.drband img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 0;border-radius:28px;background:#1b2433;box-shadow:0 18px 40px rgba(0,0,0,.15)}
 @media(max-width:760px){.drband .wrap{grid-template-columns:1fr;text-align:center}.drband img{max-width:240px;margin-inline:auto}.drband .ibact{justify-content:center}}
 .by img{border-radius:50%;object-fit:cover}
 
