@@ -468,3 +468,4 @@ label[hidden],[hidden]{display:none!important}
 .artref{margin-top:28px;border-top:1px solid var(--line);padding-top:16px}.artref h3{margin:0 0 6px;font-size:18px}.artref ol{padding-inline-start:22px;font-size:14px;line-height:1.8}.artref li a{color:var(--ink);font-weight:600}
 .tool .note a{color:var(--or);font-weight:700}
 .refsec li a,.refsec li small{display:block;text-align:right}
+.art a.btn,.artcta a.btn,.rdlg a.btn{color:#fff}.artcta .btn:hover{color:#fff}
