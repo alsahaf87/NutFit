@@ -56,7 +56,7 @@ function render(){
     if(st.type==='one')h+=`<div class="qopts">${st.o.map(o=>opt(o[0],o[1],o[2],A[st.k]===o[0],ICO[o[0]])).join('')}</div>`;
     if(st.type==='grid')h+=`<div class="qopts g3">${st.o.map(o=>opt(o[0],o[1],'',A[st.k]===o[0])).join('')}</div>`;
     if(st.type==='info')h+=`<div class="seg qsex" id="qsex"><button type="button" data-v="m" aria-pressed="${A.sex==='m'}">ذكر</button><button type="button" data-v="f" aria-pressed="${A.sex==='f'}">أنثى</button></div>
-      <div class="qin"><label>العمر (سنة)<input id="qa" type="number" inputmode="numeric" min="13" max="90" value="${esc(A.age)}" placeholder="مثلًا 28"></label><label>الطول (سم)<input id="qh" type="number" inputmode="numeric" min="120" max="230" value="${esc(A.h)}" placeholder="مثلًا 170"></label><label>الوزن (كجم)<input id="qw" type="number" inputmode="decimal" min="35" max="250" value="${esc(A.w)}" placeholder="مثلًا 75"></label></div>`;
+      <div class="qin"><label>العمر (سنة)<input id="qa" type="number" inputmode="numeric" min="13" max="90" value="${esc(A.age)}" placeholder="مثلًا 28"></label><label>الطول (سم)<input id="qh" type="number" inputmode="numeric" min="120" max="230" value="${esc(A.h)}" placeholder="مثلًا 170"></label><label>الوزن (كجم)<input id="qw" type="number" inputmode="decimal" min="35" max="250" value="${esc(A.w)}" placeholder="مثلًا 75"></label><label class="qtw">الوزن اللي نفسك توصله (اختياري)<input id="qt" type="number" inputmode="decimal" min="35" max="250" value="${esc(A.tw||'')}" placeholder="مثلًا 68"></label></div>`;
     if(st.type==='multi')h+=st.g.map(g=>`<h3 class="qg">${esc(g[0])}</h3><p class="note">${esc(g[1])}</p><div class="qchips">${g[2].map(t=>`<button type="button" class="qc" data-t="${esc(t)}" aria-pressed="${A.tools.includes(t)}">${esc(t)}</button>`).join('')}</div>`).join('');
     if(st.type==='days')h+=`<div class="qchips days">${st.o.map(d=>`<button type="button" class="qc" data-d="${esc(d)}" aria-pressed="${A.days.includes(d)}">${esc(d)}</button>`).join('')}</div><p class="note" id="dn"></p>`;
   }
@@ -77,7 +77,7 @@ $('qbody').addEventListener('click',e=>{
   if(c&&c.dataset.d){const d=c.dataset.d;A.days=A.days.includes(d)?A.days.filter(x=>x!==d):[...A.days,d];save();render();return}
   if(e.target.closest('#qagain')){i=0;render();return}
 });
-$('qbody').addEventListener('input',e=>{const m={qa:'age',qh:'h',qw:'w'}[e.target.id];if(m){A[m]=e.target.value;save();update()}});
+$('qbody').addEventListener('input',e=>{const m={qa:'age',qh:'h',qw:'w',qt:'tw'}[e.target.id];if(m){A[m]=e.target.value;save();update()}});
 function next(){if(!valid(STEPS[i]))return;if(i<STEPS.length-1){i++;render();window.scrollTo({top:0,behavior:'smooth'})}}
 $('qnext').addEventListener('click',next);
 $('qback').addEventListener('click',()=>{if(i>0){i--;render()}});
@@ -94,13 +94,25 @@ function result(){
   store.set('nut-calc',Object.assign(store.get('nut-calc',{}),{sex:A.sex,age:A.age,h:A.h,w:A.w,act:String(act),goal:A.goal==='gain'?'gain':'lose',kcal:k}));
   const lab=(k,v)=>{const s=STEPS.find(x=>x.k===k);return (s.o.find(o=>o[0]===v)||[])[1]||''};
   const chips=[lab('goal',A.goal),lab('place',A.place),lab('level',A.level),lab('time',A.time),`${fmt(n)} أيام تمرين`,...A.tools].filter(Boolean);
-  return `<span class="eyebrow">برنامجك جاهز</span><h1>دي احتياجاتك اليومية</h1>
+  const hm=h/100;let tw=+A.tw;
+  if(!(tw>=35&&tw<=250)||(A.goal!=='gain'&&tw>=w)||(A.goal==='gain'&&tw<=w))tw=A.goal==='gain'?w+4:Math.round(Math.max(24.9*hm*hm,w*0.9));
+  const rate=A.goal==='gain'?0.25:Math.min(1,Math.max(0.5,w*0.0075));
+  const wk=Math.max(1,Math.ceil(Math.abs(w-tw)/rate));
+  const dt=new Date(Date.now()+wk*7*864e5);
+  const ds=dt.toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'});
+  const W=320,H=150,P=24,y=v=>P+(Math.max(w,tw)-v)/(Math.abs(w-tw)||1)*(H-2*P),pts=[];
+  for(let i=0;i<=8;i++){const t=i/8,v=w+(tw-w)*(1-Math.pow(1-t,1.4));pts.push(`${(W-P)-(t*(W-2*P))},${y(v).toFixed(1)}`)}
+  const chart=`<svg class="qchart" viewBox="0 0 ${W} ${H}" role="img" aria-label="مسار الوزن المتوقع"><line x1="${P}" y1="${y(tw)}" x2="${W-P}" y2="${y(tw)}" stroke="#259D4E" stroke-dasharray="5 5"/><polyline points="${pts.join(' ')}" fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${W-P}" cy="${y(w)}" r="7" fill="#111"/><circle cx="${P}" cy="${y(tw)}" r="9" fill="#259D4E"/><text x="${W-P}" y="${y(w)-14}" text-anchor="middle" class="ql">${fmt(w)} كجم</text><text x="${P+4}" y="${y(tw)+(A.goal==='gain'?-16:28)}" text-anchor="middle" class="ql g">${fmt(tw)} كجم</text></svg>`;
+  const sum=`أهلًا د. محمد، دي نتيجة اختبار NutFit بتاعتي:\nالهدف: ${lab('goal',A.goal)}\nالنوع: ${A.sex==='m'?'ذكر':'أنثى'} · العمر: ${A.age}\nالطول: ${A.h} سم · الوزن: ${A.w} كجم · المستهدف: ${tw} كجم\nنسبة الدهون: ${fat?fat+'٪ تقريبًا':'مش عارف'}\nالمستوى: ${lab('level',A.level)} · المكان: ${lab('place',A.place)}\nأيام التمرين: ${A.days.join('، ')} · الوقت: ${lab('time',A.time)}\nالأدوات: ${A.tools.join('، ')}\nالسعرات المقترحة: ${Math.round(k)} سعر\nعايز أبدأ المتابعة.`;
+  const wl=window.NF&&NF.waLink?NF.waLink(sum):'';
+  return `<span class="eyebrow">برنامجك جاهز</span><h1>${A.goal==='gain'?'هتوصل':'هتوصل'} لـ ${fmt(tw)} كجم تقريبًا في ${ds}</h1>
+  <p class="qd">حوالي ${fmt(wk)} أسبوع بمعدل صحي ${A.goal==='gain'?'ربع كيلو':(Math.round(rate*10)/10).toLocaleString('ar-EG')+' كجم'} في الأسبوع، لو التزمت بالنظام والتمرين.</p>
+  ${chart}
   <div class="big qres"><small>${A.goal==='gain'?'سعراتك اليومية لاكتساب كتلة عضلية':'سعراتك اليومية لخسارة الوزن والدهون'}</small><div class="n">${fmt(k)}<span>سعر حراري</span></div>
    <div class="qmac"><div><b>${fmt(p)}</b>جم بروتين</div><div><b>${fmt(c)}</b>جم كارب</div><div><b>${fmt(f)}</b>جم دهون</div></div></div>
   <div class="qsum">${chips.map(x=>`<span>${esc(x)}</span>`).join('')}</div>
-  <p class="qd">هنبني لك برنامج تمارين ونظام غذائي على المعلومات دي، ونتابعك فيه خطوة بخطوة.</p>
-  <div class="qend"><a class="btn" href="pricing.html">اختار خطتك</a><a class="btn ghost" href="pricing.html#free">جرّب الخطة المجانية</a></div>
-  <p class="note">الأرقام تقديرية${fat?' ومحسوبة بنسبة الدهون (معادلة Katch-McArdle)':' (معادلة Mifflin-St Jeor)'}. <button class="linkb" id="qagain" type="button">عدّل إجاباتك</button></p>`;
+  <div class="qend">${wl?`<a class="btn" href="${wl}">ابعت نتيجتك لد. محمد على الواتساب</a>`:`<a class="btn" href="book.html">احجز متابعتك مع د. محمد</a>`}<a class="btn ghost" href="pricing.html">شوف باقات المتابعة</a></div>
+  <p class="note">التاريخ والأرقام تقديرية${fat?' ومحسوبة بنسبة الدهون (معادلة Katch-McArdle)':' (معادلة Mifflin-St Jeor)'}، والنتيجة بتختلف من شخص للتاني. <button class="linkb" id="qagain" type="button">عدّل إجاباتك</button></p>`;
 }
 render();
 }

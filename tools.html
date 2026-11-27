@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حاسبات التغذية | NutFit — Dr. Mohamed Alsahaf</title>
+<meta name="description" content="حاسبة نسبة الدهون، والوزن المثالي، والبروتين اليومي، والمية.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/brand/favicon-48.png">
+<link rel="apple-touch-icon" href="assets/brand/icon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#259D4E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="NutFit — Dr. Mohamed Alsahaf">
+<meta property="og:title" content="حاسبات التغذية | NutFit — Dr. Mohamed Alsahaf">
+<meta property="og:description" content="حاسبة نسبة الدهون، والوزن المثالي، والبروتين اليومي، والمية.">
+<meta property="og:image" content="https://nutfit.pages.dev/assets/brand/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<body>
+<nav aria-label="القائمة الرئيسية"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="NutFit — الرئيسية"><img src="assets/brand/logo-h.webp" width="800" height="229" alt="NutFit — Dr. Mohamed Alsahaf"></a>
+  <div class="links"><a class="l" href="index.html"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h5v-6h4v6h5V10"/></svg></span><span>الرئيسية</span></a><a class="l" href="about.html"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21c0-4 3.6-7 8-7s8 3 8 7M15 17l2 2 4-4"/></svg></span><span><i class="lw">عن </i>الدكتور</span></a><a class="l" href="recipes.html"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM12 17a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM2 3v5a2 2 0 0 0 2 2V21M4 3v4M22 3c-2 1-3 3-3 6h3V21"/></svg></span><span>الوصفات</span></a><a class="l" href="tools.html" aria-current="page"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 6h8v4H8zM8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/></svg></span><span>الأدوات</span></a><a class="l" href="articles.html"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11l3 3v13H5zM8 9h8M8 13h8M8 17h5"/></svg></span><span>المقالات</span></a><a class="l" href="pricing.html"><span class="ni"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5zM5 19h14"/></svg></span><span>الاشتراكات</span></a></div>
+  <a class="btn ghost" href="start.html">ابدأ التغيير</a>
+</div></nav>
+<header class="band peach phead"><div class="wrap">
+  <span class="eyebrow">أدوات NutFit المجانية</span><h1>حاسبات التغذية</h1>
+  <p class="lead">كل الحاسبات تقديرية للتوعية، والنتيجة الأدق بتكون مع المتابعة.</p>
+  <div class="tnav"><a href="index.html#calc">السعرات والماكروز</a><a href="#fat">نسبة الدهون</a><a href="#ideal">الوزن المثالي</a><a href="#protein">البروتين</a><a href="#water">المية</a><a href="foods.html">جدول الأكلات</a></div>
+</div></header>
+<section class="band"><div class="wrap tgrid">
+  <div class="tool" id="fat"><h2>نسبة الدهون في الجسم</h2><p class="note">بطريقة قياسات البحرية الأمريكية (شريط قياس).</p>
+    <div class="seg" id="fsex"><button type="button" data-v="m" aria-pressed="true">ذكر</button><button type="button" data-v="f" aria-pressed="false">أنثى</button></div>
+    <div class="tin"><label>الطول (سم)<input id="fh" type="number" inputmode="decimal" value="175"></label><label>الرقبة (سم)<input id="fn" type="number" inputmode="decimal" value="38"></label><label>الوسط عند السرة (سم)<input id="fw" type="number" inputmode="decimal" value="90"></label><label id="fhipL" hidden>الأرداف (سم)<input id="fhip" type="number" inputmode="decimal" value="100"></label></div>
+    <div class="tres"><b id="fout">—</b><span id="fcat"></span></div></div>
+  <div class="tool" id="ideal"><h2>الوزن المثالي</h2><p class="note">المدى الصحي حسب مؤشر كتلة الجسم (١٨٫٥ – ٢٤٫٩).</p>
+    <div class="tin"><label>الطول (سم)<input id="ih" type="number" inputmode="decimal" value="170"></label></div>
+    <div class="tres"><b id="iout">—</b><span>كجم</span></div></div>
+  <div class="tool" id="protein"><h2>البروتين اليومي</h2>
+    <div class="tin"><label>الوزن (كجم)<input id="pw" type="number" inputmode="decimal" value="80"></label><label>نشاطك<select id="pa"><option value="0.8">قليل الحركة</option><option value="1.2">نشاط خفيف</option><option value="1.6" selected>بتتمرن بانتظام</option><option value="2">بناء عضل / نزول وزن مع تمرين</option></select></label></div>
+    <div class="tres"><b id="pout">—</b><span>جم في اليوم</span></div><p class="note">مرضى الكلى يحددوا احتياجهم مع الطبيب.</p></div>
+  <div class="tool" id="water"><h2>المية اليومية</h2>
+    <div class="tin"><label>الوزن (كجم)<input id="ww" type="number" inputmode="decimal" value="75"></label><label>تمرين في اليوم (دقيقة)<input id="wt" type="number" inputmode="numeric" value="30"></label><label>الجو<select id="wc"><option value="0">معتدل</option><option value="0.5">حار</option></select></label></div>
+    <div class="tres"><b id="wout">—</b><span>لتر</span></div><p class="note" id="wcup"></p></div>
+</div></section>
+<footer><div class="wrap">
+  <div><a class="flogo" href="index.html"><img src="assets/brand/logo-stack.webp" width="600" height="510" alt="NutFit — Dr. Mohamed Alsahaf" loading="lazy"></a></div>
+  <div><h4>NutFit</h4><a href="about.html">عن د. محمد</a><a href="start.html">ابدأ رحلتك</a><a href="pricing.html">الاشتراكات</a><a href="book.html">احجز استشارة</a><a href="nutrition.html">نظام التغذية</a></div>
+  <div><h4>مجانًا</h4><a href="index.html#calc">حاسبة السعرات</a><a href="tools.html">حاسبات التغذية</a><a href="foods.html">جدول الأكلات</a><a href="recipes.html">الوصفات</a><a href="articles.html">المقالات</a><a href="assets/NutFit-7-day-guide.pdf" download>دليل الأسبوع الصحي</a></div>
+  <div id="social"></div>
+</div>
+<div class="copy"><span>© <span id="yr"></span> NutFit · Dr. Mohamed Alsahaf</span><span><a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a></span><span>المعلومات هنا للتوعية العامة ومش بديل عن استشارة طبية.</span></div>
+</footer>
+<script src="assets/config.js"></script>
+<script src="assets/common.js"></script>
+<script>{const $=i=>document.getElementById(i),A=n=>n.toLocaleString('ar-EG',{maximumFractionDigits:1});let sex='m';
+$('fsex').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;sex=b.dataset.v;$('fsex').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));$('fhipL').hidden=sex!=='f';calc()});
+function calc(){const h=+$('fh').value,n=+$('fn').value,w=+$('fw').value,hp=+$('fhip').value;let bf=NaN;
+ if(sex==='m'&&w>n)bf=495/(1.0324-0.19077*Math.log10(w-n)+0.15456*Math.log10(h))-450;
+ if(sex==='f'&&w+hp>n)bf=495/(1.29579-0.35004*Math.log10(w+hp-n)+0.22100*Math.log10(h))-450;
+ if(isFinite(bf)&&bf>2&&bf<70){$('fout').textContent=A(bf)+'٪';const t=sex==='m'?[6,14,18,25]:[14,21,25,32];$('fcat').textContent=bf<t[0]?'أقل من الطبيعي':bf<t[1]?'رياضي':bf<t[2]?'لياقة جيدة':bf<t[3]?'متوسط':'أعلى من الطبيعي'}else{$('fout').textContent='—';$('fcat').textContent='راجع القياسات'}
+ const ih=+$('ih').value/100;$('iout').textContent=ih>1?'من '+A(18.5*ih*ih)+' لـ '+A(24.9*ih*ih):'—';
+ const pw=+$('pw').value;$('pout').textContent=pw>0?A(Math.round(pw*+$('pa').value)):'—';
+ const ww=+$('ww').value;const L=ww*0.033+(+$('wt').value||0)/30*0.35+ +$('wc').value;$('wout').textContent=ww>0?A(Math.round(L*10)/10):'—';$('wcup').textContent=ww>0?'حوالي '+A(Math.round(L*4))+' كوباية':''}
+document.querySelectorAll('.tool input,.tool select').forEach(x=>x.addEventListener('input',calc));calc();}</script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear()</script>
+</body>
+</html>
