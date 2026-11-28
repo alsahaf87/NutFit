@@ -629,3 +629,9 @@ label[hidden],[hidden]{display:none!important}
 @media print{.alaunch,.asst{display:none!important}.trform,.trhero{display:none}.trday{break-inside:avoid}}
 @media print{body:has(#trout:not([hidden])) .trhead~*:not(.trdays){display:none}#trout .note{display:block!important}}
 #trout{scroll-margin-top:150px}
+.art h4{font-size:16px;margin:16px 0 6px;color:#1d7a3e}
+.dryes{display:flex;gap:16px;align-items:flex-start;background:linear-gradient(135deg,#eaf7ef,#fff);border:1.5px solid #259D4E;border-radius:22px;padding:20px;margin:28px 0 14px}
+.dryes img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:none;border:3px solid #259D4E}
+.dryes h3{margin:0 0 8px}.dryes p{margin:0 0 10px}
+@media(max-width:600px){.dryes{flex-direction:column;align-items:center;text-align:center}}
+.nw{white-space:nowrap;unicode-bidi:isolate}

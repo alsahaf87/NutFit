@@ -11,7 +11,7 @@ if(!document.body.classList.contains('no-fab')){
   a.setAttribute('aria-label',NF.wa?'تواصل على واتساب':'احجز استشارة');
   document.body.appendChild(a);
 }
-if(NF.wa){document.querySelectorAll('a[href^="book.html"]').forEach(a=>{const pl=new URL(a.getAttribute('href'),location.href).searchParams.get('plan');a.href=NF.waLink('أهلًا د. محمد، عايز أحجز متابعة مع NutFit'+(pl?' — باقة '+pl:''));a.rel='noopener'});
+if(NF.wa){document.querySelectorAll('a[href^="book.html"]').forEach(a=>{const pl=new URL(a.getAttribute('href'),location.href).searchParams.get('plan');a.href=NF.waLink(a.dataset.wa||('أهلًا د. محمد، عايز أحجز متابعة مع NutFit'+(pl?' — باقة '+pl:'')));a.rel='noopener'});
  document.addEventListener('click',e=>{const g=e.target.closest('#go');if(g&&NF.wa){const p=document.querySelector('.plan[aria-checked=true]');g.href=NF.waLink('أهلًا د. محمد، عايز أحجز '+(p?p.dataset.p:'متابعة')+' مع NutFit')}},true);}
 const soc=document.getElementById('social');
 if(soc){const L=[['instagram','Instagram'],['facebook','Facebook'],['tiktok','TikTok'],['youtube','YouTube']].filter(([k])=>NF[k]);
