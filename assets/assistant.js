@@ -65,16 +65,45 @@ async function train(){
 /* ---- free text ---- */
 const RED=/حامل|حمل|رضاع|مرضع|انسولين|إنسولين|كلى|كلي|غسيل|سرطان|كيماوي|اكل وارجع|ترجيع|قيء متعمد/;
 const KW=[[/سعر|سعرات|كالوري|احتياج|حرق/,calc],[/نظام|دايت|رجيم|اكل|أكل|وجب/,meal],[/تمرين|جيم|برنامج|عضل|تمارين|بوش|بول|ليج|اكسرسايز/,()=>bot('عندنا صفحة تمارين فيها برامج جاهزة للجيم (بوش بول ليج، علوي سفلي، جسم كامل) وللبيت، ومكتبة تمارين بالصور وPDF للتحميل. أو أعملك برنامج على مقاسك.',[['💪 افتح صفحة التمارين','exercises.html'],['🏋️ صمّم برنامجي',train],['القائمة',()=>home()]])],[/انبادي|إنبادي|inbody|ان بادي/i,inbody],[/وصف|طبخ|فطار|غدا|عشا/,recipes],[/سعر الباق|اشتراك|باق|بكام|تكلف|حجز|احجز|متابع|واتس|كلم|تواصل|دكتور/,human]];
-function answer(txt){
+function localAnswer(txt){
   if(RED.test(txt)){bot('الحالة دي محتاجة تقييم شخصي من د. محمد، مش نظام تلقائي — عشان سلامتك. ابعتله على الواتساب وهو يراجع حالتك وأدويتك.',[['💬 كلّم د. محمد',human],['القائمة',()=>home()]]);return}
   const f=(window.NF_FAQ||[]).map(([q,a])=>{const w=q.replace(/[؟?،.]/g,'').split(/\s+/).filter(x=>x.length>2);return[w.filter(x=>txt.includes(x)).length/(w.length||1),q,a]}).sort((a,b)=>b[0]-a[0])[0];
   if(f&&f[0]>=.34){bot(`<b>${f[1]}</b><br>${f[2]}`,MENU());return}
   for(const[r,fn]of KW)if(r.test(txt)){fn();return}
   bot('أنا مساعد آلي ومش هقدر أجاوب على كل الأسئلة. ممكن تختار من دول، أو تبعت سؤالك لد. محمد نفسه.',MENU());
 }
+
+/* ---- AI (Cloudflare function → Claude). Falls back to local answers if not configured ---- */
+let AI=null;const hist=[];
+fetch('/api/chat',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{AI=!!(j&&j.ai);if(AI){const s=box.querySelector('.ah small');if(s)s.innerHTML='<i class="dot"></i>مساعد ذكي (AI) · مرتبط بمصادر علمية'}}).catch(()=>{AI=false});
+const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function md(t){
+  const acts=[];
+  t=t.replace(/\[\[go:([^\]|]+)\|([^\]]+)\]\]/g,(_,u,l)=>{if(/^(https?:|javascript:)/i.test(u.trim()))return '';acts.push(['go',u.trim(),l]);return ''})
+     .replace(/\[\[wa\|([^\]]+)\]\]/g,(_,l)=>{acts.push(['wa','',l]);return ''});
+  let h=esc(t.trim()).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
+  h=h.split(/\n{2,}/).map(p=>{const ls=p.split('\n');if(ls.every(l=>/^\s*([-•*]|\d+[.)])\s+/.test(l)))return '<ul>'+ls.map(l=>'<li>'+l.replace(/^\s*([-•*]|\d+[.)])\s+/,'')+'</li>').join('')+'</ul>';return '<p>'+ls.join('<br>')+'</p>'}).join('');
+  return {h,acts};
+}
+async function aiAnswer(txt){
+  hist.push({role:'user',content:txt});
+  Q.innerHTML='';const t=say('<span class="typing"><i></i><i></i><i></i></span>');
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:hist.slice(-12)})});
+    if(!r.ok)throw new Error(r.status);
+    const j=await r.json();if(!j.text)throw new Error('empty');
+    hist.push({role:'assistant',content:j.text});
+    const {h,acts}=md(j.text);t.lastChild.remove();
+    let src='';if(j.sources&&j.sources.length)src='<div class="asrc"><small>المصادر:</small>'+j.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title).slice(0,60)}</a>`).join('')+'</div>';
+    t.insertAdjacentHTML('beforeend',`<div class="aimd">${h}${src}</div>`);B.scrollTop=B.scrollHeight;
+    const opts=acts.slice(0,3).map(([k,u,l])=>[l,k==='go'?u:()=>{location.href=wa('أهلًا د. محمد، جاي من المساعد على NutFit.\nسؤالي: '+hist.filter(m=>m.role==='user').slice(-2).map(m=>m.content).join(' / '))}]);
+    chips(opts.concat([['القائمة',()=>home()]]));
+  }catch(e){hist.pop();t.remove();localAnswer(txt)}
+}
+function answer(txt){if(AI)aiAnswer(txt);else localAnswer(txt)}
 F.addEventListener('submit',e=>{e.preventDefault();const v=I.value.trim();if(!v)return;I.value='';say(v.replace(/</g,'&lt;'),'u');if(wait)wait(v);else answer(v)});
 let started=false;
-function open(){if(!window.NF_FAQ&&!document.getElementById('nffaq')){const s=document.createElement('script');s.id='nffaq';s.src='assets/faq-data.js';document.head.append(s)}box.hidden=false;launch.hidden=true;if(!started){started=true;bot(`أهلًا بيك 👋 أنا المساعد الذكي لـ<b>د. محمد الصحاف</b>.<br>أقدر أحسبلك سعراتك، وأعملك نظام أكل وبرنامج تمرين بالصور — مجانًا.`,null,500).then(()=>home())}setTimeout(()=>I.focus(),300)}
+function open(){if(!window.NF_FAQ&&!document.getElementById('nffaq')){const s=document.createElement('script');s.id='nffaq';s.src='assets/faq-data.js';document.head.append(s)}box.hidden=false;launch.hidden=true;if(!started){started=true;bot(`أهلًا بيك 👋 أنا المساعد الذكي لـ<b>د. محمد الصحاف</b>.<br>أقدر أحسبلك سعراتك، وأعملك نظام أكل وبرنامج تمرين بالصور — مجانًا. واسألني أي سؤال في التغذية أو التمرين.<br><small class="anote">مساعد آلي ومش بديل عن الطبيب.</small>`,null,500).then(()=>home())}setTimeout(()=>I.focus(),300)}
 function close(){box.hidden=true;launch.hidden=false;launch.focus()}
 launch.onclick=open;box.querySelector('.ax').onclick=close;
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!box.hidden)close()});

@@ -746,3 +746,6 @@ label[hidden],[hidden]{display:none!important}
 .ifrules .warn{background:#fff7f0;border-color:#ffd9c0}
 .chips .ifc{border-color:#259D4E;color:#1d7a3e}
 @media(max-width:820px){.ifhead,.ifroles,.ifplans,.ifrules{grid-template-columns:1fr}}
+.aimd p{margin:0 0 6px}.aimd ul{margin:4px 0 6px;padding-inline-start:18px}.aimd li{margin:2px 0}
+.asrc{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;border-top:1px dashed #e3ebe6;padding-top:6px}.asrc small{width:100%;color:#789}
+.asrc a{font-size:12px;background:#f1f6f3;border-radius:8px;padding:2px 8px;color:#1d5c33;text-decoration:none;direction:ltr}
