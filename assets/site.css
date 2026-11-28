@@ -702,3 +702,8 @@ label[hidden],[hidden]{display:none!important}
 @media print{.exhero,.pfil,#library,.xdlg{display:none!important}}
 #pwrap{padding-top:28px}
 .exprom h2{color:#fff}
+.coach{position:relative;margin:0;border-radius:26px;overflow:hidden;box-shadow:0 20px 44px rgba(0,0,0,.45);max-width:440px;justify-self:center;border:3px solid rgba(255,255,255,.12)}
+.coach img{display:block;width:100%;height:auto}
+.coach figcaption{position:absolute;inset-inline:0;bottom:0;padding:40px 18px 14px;background:linear-gradient(transparent,rgba(0,0,0,.85));display:flex;flex-direction:column}
+.coach figcaption b{font-size:20px;color:#fff}.coach figcaption span{color:#7fe3a2;font-weight:700;font-size:14px}
+@media(max-width:820px){.coach{max-width:320px}}
