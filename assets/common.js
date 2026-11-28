@@ -17,3 +17,14 @@ const soc=document.getElementById('social');
 if(soc){const L=[['instagram','Instagram'],['facebook','Facebook'],['tiktok','TikTok'],['youtube','YouTube']].filter(([k])=>NF[k]);
   if(L.length){soc.innerHTML='<h4>تابعنا</h4>'+L.map(([k,n])=>`<a href="${NF[k]}" rel="noopener">${n}</a>`).join('')}else soc.remove()}
 }
+
+/* ---- discount code block ---- */
+(function(){const p=document.querySelectorAll('.promo');if(!p.length)return;const P=(window.NF&&NF.promo)||{};
+if(P.active===false){p.forEach(x=>x.remove());return}
+const A=n=>String(n).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+p.forEach(sec=>{const l=sec.querySelector('#pleft');if(l&&typeof P.left==='number'){l.hidden=false;l.innerHTML=P.left>0?`<i></i> فاضل <b>${A(P.left)}</b> مكان بس`:'خلص العرض — تابعنا للعروض الجاية';l.style.setProperty('--w',Math.max(4,Math.min(100,P.left))+'%')}
+const b=sec.querySelector('.pcode'),t=sec.querySelector('.ptoast');if(!b)return;
+b.addEventListener('click',async()=>{const code=P.code||'NUTFIT15';try{await navigator.clipboard.writeText(code)}catch(e){const r=document.createRange();r.selectNodeContents(b.querySelector('b'));const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy')}catch(_){}}
+b.classList.add('done');b.querySelector('.pcopy').textContent='✓ اتنسخ';if(t){t.textContent='اتنسخ الكود '+code+' — ابعته لد. محمد وإنت بتحجز 🎉';t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600)}
+for(let i=0;i<18;i++){const c=document.createElement('i');c.className='pconf';c.style.setProperty('--x',(Math.random()*240-120)+'px');c.style.setProperty('--y',(-60-Math.random()*120)+'px');c.style.setProperty('--r',(Math.random()*540)+'deg');c.style.background=['#259D4E','#ffd23f','#ff5a1f','#fff'][i%4];b.appendChild(c);setTimeout(()=>c.remove(),1000)}
+setTimeout(()=>{b.classList.remove('done');b.querySelector('.pcopy').textContent='انسخ الكود'},3000)})})})();

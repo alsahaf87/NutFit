@@ -6,5 +6,7 @@ window.NF = {
   instagram: '',
   facebook: '',
   tiktok: '',
-  youtube: ''
+  youtube: '',
+  /* promo: set left to a number (e.g. 37) to show «فاضل ٣٧ مكان». Set active:false to hide the offer. */
+  promo: { code: 'NUTFIT15', active: true, left: null }
 };
