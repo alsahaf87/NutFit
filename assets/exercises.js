@@ -26,7 +26,10 @@ function filt(){let n=0;const q=st.q.trim().toLowerCase();
 [['xm','m'],['xpl','p']].forEach(([id,k])=>$(id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;st[k]=b.dataset[k];$(id).querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));filt()}));
 $('xq').addEventListener('input',e=>{st.q=e.target.value;filt()});
 /* ---- trend filter ---- */
-$('tch').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('tch').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));document.querySelectorAll('.tcard').forEach(c=>c.hidden=!!b.dataset.t&&c.dataset.t!==b.dataset.t);$('tsh').scrollTo({left:0,behavior:'smooth'})});
+let tall=false,tsel='';const LIM=matchMedia('(max-width:600px)').matches?6:12;
+function tshow(){let n=0,tot=0;document.querySelectorAll('.tcard').forEach(c=>{const ok=!tsel||c.dataset.t===tsel;if(ok)tot++;c.hidden=!ok||(!tall&&!tsel&&n>=LIM);if(ok&&!c.hidden)n++});$('tmore').hidden=tall||!!tsel||tot<=LIM}
+$('tch').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;$('tch').querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));tsel=b.dataset.t;tshow()});
+$('tmore').addEventListener('click',()=>{tall=true;tshow()});tshow();
 /* ---- exercise dialog ---- */
 const d=$('xd');
 function open(k){const e=E[k];if(!e)return;

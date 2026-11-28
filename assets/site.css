@@ -724,3 +724,6 @@ label[hidden],[hidden]{display:none!important}
 .tph.big{aspect-ratio:16/9;border-radius:18px}.tph.big b{font-size:72px}
 .xwhy{background:#fff7ef;border:1px solid #ffe0c7;border-radius:14px;padding:12px 14px;margin:12px 0 0}.xwhy p{margin:8px 0 0}
 #tch{margin-top:16px}
+.tshelf{grid-auto-flow:row;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));overflow:visible;scroll-snap-type:none}
+@media(max-width:600px){.tshelf{grid-template-columns:1fr 1fr;gap:10px}.tb b{font-size:14.5px}.tw{font-size:12px;-webkit-line-clamp:4}.tcard>.ttag{font-size:10.5px;padding:3px 8px;top:12px;inset-inline-start:12px}.tph b{font-size:34px}}
+.tmore{background:linear-gradient(135deg,#ff6a00,#ff2d55);margin-top:6px}
