@@ -783,3 +783,10 @@ label[hidden],[hidden]{display:none!important}
 .ptoast.on{opacity:1;transform:translate(-50%,0)}
 @media(max-width:760px){.pcard2{grid-template-columns:1fr;padding:22px}.pcode b{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.ptrack,.pcard2,.pglow,.pbadge2,.pct,.pleftn i{animation:none}}
+.plan{grid-template-areas:"t p" "s s" "a a"}
+.plan .price b{font-size:34px;color:#1d7a3e}
+.plan .after{grid-area:a;display:block;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:13.5px;color:#456}
+.plan .after s{color:#99a;margin-inline:4px}.plan .after>b:last-child{color:#ff5a1f;font-size:16px}
+.plan small{text-align:start}
+.pnote{display:block;margin-top:8px;color:var(--mute);font-size:12.5px}
+#plans{scroll-margin-top:170px}
