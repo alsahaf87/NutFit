@@ -21,7 +21,7 @@ let wait=null;
 function say(h,who='b'){const m=el('div','am '+who,h);if(who==='b'){m.prepend(el('img','mav'))};const im=m.querySelector('.mav');if(im){im.src=AV;im.alt=''}B.append(m);B.scrollTop=B.scrollHeight;return m}
 function bot(h,opts,delay=380){Q.innerHTML='';const t=say('<span class="typing"><i></i><i></i><i></i></span>');return new Promise(r=>setTimeout(()=>{t.lastChild.remove();t.insertAdjacentHTML('beforeend',`<div>${h}</div>`);B.scrollTop=B.scrollHeight;if(opts)chips(opts);r()},delay))}
 function chips(opts){Q.innerHTML='';opts.forEach(([t,f])=>{const b=el('button','chip2',t);b.type='button';b.onclick=()=>{say(t,'u');Q.innerHTML='';typeof f==='string'?location.href=f:f()};Q.append(b)})}
-const MENU=()=>[['🔥 احسب سعراتي',calc],['🥗 اعمل نظام أكل',meal],['🏋️ برنامج تمرين بالصور',train],['📄 نظام من ورقة InBody',inbody],['🍳 وصفات بالسعرات',recipes],['💬 كلّم د. محمد',human]];
+const MENU=()=>[['🔥 احسب سعراتي',calc],['🥗 اعمل نظام أكل',meal],['💪 تمارين جيم وبيت','exercises.html'],['🏋️ صمّم برنامج تمرين',train],['📄 نظام من ورقة InBody',inbody],['🍳 وصفات بالسعرات',recipes],['💬 كلّم د. محمد',human]];
 function home(msg){bot(msg||'تحب أساعدك في إيه؟',MENU())}
 
 /* ---- calories ---- */
@@ -64,7 +64,7 @@ async function train(){
 }
 /* ---- free text ---- */
 const RED=/حامل|حمل|رضاع|مرضع|انسولين|إنسولين|كلى|كلي|غسيل|سرطان|كيماوي|اكل وارجع|ترجيع|قيء متعمد/;
-const KW=[[/سعر|سعرات|كالوري|احتياج|حرق/,calc],[/نظام|دايت|رجيم|اكل|أكل|وجب/,meal],[/تمرين|جيم|برنامج|عضل|تمارين/,train],[/انبادي|إنبادي|inbody|ان بادي/i,inbody],[/وصف|طبخ|فطار|غدا|عشا/,recipes],[/سعر الباق|اشتراك|باق|بكام|تكلف|حجز|احجز|متابع|واتس|كلم|تواصل|دكتور/,human]];
+const KW=[[/سعر|سعرات|كالوري|احتياج|حرق/,calc],[/نظام|دايت|رجيم|اكل|أكل|وجب/,meal],[/تمرين|جيم|برنامج|عضل|تمارين|بوش|بول|ليج|اكسرسايز/,()=>bot('عندنا صفحة تمارين فيها برامج جاهزة للجيم (بوش بول ليج، علوي سفلي، جسم كامل) وللبيت، ومكتبة تمارين بالصور وPDF للتحميل. أو أعملك برنامج على مقاسك.',[['💪 افتح صفحة التمارين','exercises.html'],['🏋️ صمّم برنامجي',train],['القائمة',()=>home()]])],[/انبادي|إنبادي|inbody|ان بادي/i,inbody],[/وصف|طبخ|فطار|غدا|عشا/,recipes],[/سعر الباق|اشتراك|باق|بكام|تكلف|حجز|احجز|متابع|واتس|كلم|تواصل|دكتور/,human]];
 function answer(txt){
   if(RED.test(txt)){bot('الحالة دي محتاجة تقييم شخصي من د. محمد، مش نظام تلقائي — عشان سلامتك. ابعتله على الواتساب وهو يراجع حالتك وأدويتك.',[['💬 كلّم د. محمد',human],['القائمة',()=>home()]]);return}
   const f=(window.NF_FAQ||[]).map(([q,a])=>{const w=q.replace(/[؟?،.]/g,'').split(/\s+/).filter(x=>x.length>2);return[w.filter(x=>txt.includes(x)).length/(w.length||1),q,a]}).sort((a,b)=>b[0]-a[0])[0];
