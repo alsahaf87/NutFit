@@ -79,7 +79,7 @@ fetch('/api/chat',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{AI=!!
 const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function md(t){
   const acts=[];
-  t=t.replace(/\[\[go:([^\]|]+)\|([^\]]+)\]\]/g,(_,u,l)=>{if(/^(https?:|javascript:)/i.test(u.trim()))return '';acts.push(['go',u.trim(),l]);return ''})
+  t=t.replace(/\[\[go:([^\]|]+)\|([^\]]+)\]\]/g,(_,u,l)=>{if(/^(https?:|javascript:|\/\/)/i.test(u.trim())||!/^(index|inbody|recipes|exercises|training|tools|foods|articles|pricing|about|references|book)\.html|^assets\/pdf\//.test(u.trim()))return '';acts.push(['go',u.trim(),l]);return ''})
      .replace(/\[\[wa\|([^\]]+)\]\]/g,(_,l)=>{acts.push(['wa','',l]);return ''});
   let h=esc(t.trim()).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>');
   h=h.split(/\n{2,}/).map(p=>{const ls=p.split('\n');if(ls.every(l=>/^\s*([-•*]|\d+[.)])\s+/.test(l)))return '<ul>'+ls.map(l=>'<li>'+l.replace(/^\s*([-•*]|\d+[.)])\s+/,'')+'</li>').join('')+'</ul>';return '<p>'+ls.join('<br>')+'</p>'}).join('');
