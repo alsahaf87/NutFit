@@ -75,7 +75,7 @@ function localAnswer(txt){
 
 /* ---- AI (Cloudflare function → Claude). Falls back to local answers if not configured ---- */
 let AI=null;const hist=[];
-fetch('/api/chat',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{AI=!!(j&&j.ai);if(AI){const s=box.querySelector('.ah small');if(s)s.innerHTML='<i class="dot"></i>مساعد ذكي (AI) · مرتبط بمصادر علمية'}}).catch(()=>{AI=false});
+fetch('/api/chat',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{AI=!!(j&&j.ai);if(AI){const s=box.querySelector('.ah small');if(s)s.innerHTML='<i class="dot"></i>مساعد ذكي (AI)'+(j.mode==='claude'?' · مرتبط بمصادر علمية':'')}}).catch(()=>{AI=false});
 const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function md(t){
   const acts=[];
